@@ -1,0 +1,18 @@
+package com.ourgame.mahjong.message.chat;
+
+enum E_Pos_CoinType
+{
+    CT_UNDEFINED    = 0; // 未定义
+    CT_INTEGRAL     = 1; // 积分
+    CT_GOLD         = 2; // 金币
+    CT_WND          = 3; // 万能豆
+}
+
+message Pos_Position
+{
+    optional E_Pos_CoinType CoinType        = 1 [default = CT_UNDEFINED];
+    optional int32          ChannelID       = 2 [default = -1]; // -1: 所有渠道，-2: 所有混服，其它值: 某特定渠道
+    optional int32          GameID          = 3 [default = 0];
+    optional int32          GroupID         = 4 [default = 0];
+    optional int64          RoomID          = 5 [default = 0];   
+}

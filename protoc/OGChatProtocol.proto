@@ -1,0 +1,252 @@
+package com.ourgame.mahjong.message.chat;
+
+//========================================================================================
+// 聊天服务器消息结构定义
+// 创建：魏慧乾
+// 日期：20120530
+//========================================================================================
+// 修改记录
+// 时间		修改人		修改内容
+//========================================================================================
+
+import "OGPositionCommon.proto";
+
+enum ChatResult
+{
+    CHAT_FALSE  = 0;    // 失败
+    CHAT_OK     = 1;    // 成功
+}
+
+//=========================================================================================
+//				客户端 -> 聊天服务器 (0 ~ 50)
+//=========================================================================================
+
+// 心跳（服务器端默认120秒连接超时）
+// #define OGID_CHAT_IDLE                                  ( OGID_MSGBASE_OGMESSAGE + 0 )
+
+// 取聊天服务器地址列表
+// #define OGID_CHAT_GET_CHATSVR_LIST                      ( OGID_MSGBASE_OGMESSAGE + 50 )
+message SvrAddr
+{
+    optional string ip  = 1;
+    optional int32 port = 2;
+}
+
+message OGAckChatGetChatSvrList
+{
+    repeated SvrAddr list = 1; // 聊天服务器地址列表
+}
+
+// #define OGID_CHAT_LOGIN                                 ( OGID_MSGBASE_OGMESSAGE + 1 )
+// 用户登录请求
+// chat login interface's ver: 0x0001000000000000 (20120614)
+message OGReqChatLogin
+{
+    enum E_ClientType
+    {
+        CT_LOBBY            = 0x00000001;	// 桌面客户端大厅
+        CT_GAME             = 0x00000002;	// 桌面游戏客户端
+        CT_FLASH_L          = 0x00000004;	// Flash客户端高级场大厅
+        CT_FLASH_G          = 0x00000008;	// Flash客户端高级场游戏
+        CT_MATCH_L          = 0x00000010;	// 比赛客户端大厅
+        CT_MATCH_G          = 0x00000020;	// 比赛客户端游戏
+        CT_FLASH_RG         = 0x01000000;   // Flash客户端游戏(无需登录房间，直接进入游戏)
+        CT_WHOLE_GAME       = 0x20000000;   // 全游戏聊天室(来自捉鱼的特殊需求)
+    }
+
+    optional int64          Version         = 1 [default = 0x0001000000000000]; // 客户端版本
+    optional E_ClientType   ClientType      = 2; // 客户端类型
+    optional int32          GameID          = 3; // 游戏ID
+    optional string         GameName        = 4; // 游戏名
+    optional int64          RoomID          = 5 [default = 0]; // 房间ID(仅在全游戏聊天室的时候可以不设置)
+    optional string         RoomName        = 6 [default = ""]; // 房间名(仅在全游戏聊天室的时候可以不设置)
+    optional string         TableGUID       = 7 [default = ""]; // 桌子GUID
+    optional string         RoleName        = 8; // 角色名
+    optional string         ShowName        = 9 [default = ""]; // 显示名（如无可以不添）
+    optional bytes          CertStream      = 10; // 证书数据区 string
+    optional string         RoomSvrIP       = 11 [default = ""]; // 房间服务器或游戏服务器的IP
+    optional int32          RoomSvrPort     = 12 [default = -1]; // 房间服务器或游戏服务器的端口号
+    optional string         EnterMsg        = 13 [default = ""]; // 进入语
+    optional string         LeaveMsg        = 14 [default = ""]; // 退出语
+    optional int32          GroupID         = 15 [default = 0]; // 场ID（初级场，中级场，高级场）
+    optional string         GroupName       = 16 [default = ""]; // 场名称
+    optional int32          ChannelID       = 17; // 用户的渠道号
+    optional E_Pos_CoinType CoinType        = 18; // 货币类型
+    optional int32          RoomChannelID   = 19 [default = -1]; // 房间的渠道号(仅针对独服游戏，混服游戏无需设置此值)
+    optional bool           UseShowName     = 20 [default = false]; // 是否仅使用显示名作为玩家的唯一标识(例子: 360斗地主对昵称的使用)
+}
+
+// 用户登录回应
+message OGAckChatLogin
+{
+    enum ErrorType
+    {
+        ET_UNKNOWN          = 0;
+        ET_ERROR_VERSION    = 1; // 客户端版本错误
+        ET_PARSE_FAILED     = 2; // 消息解析错误        
+        ET_VERIFY_FAILED    = 3; // 证书验证失败
+        ET_ERROR_PARAMS     = 4; // 登录参数错误
+        ET_REACH_LIMIT      = 5; // 达到了聊天室的最大人数限制(普聊600人，广播3000人)
+        ET_POSDB_ERROR      = 6; // 访问位置服务器出错
+    }
+    required ChatResult     Result          = 1;	
+    optional ErrorType      Reason          = 2 [default = ET_UNKNOWN];
+}
+
+// 频道聊天用户登录
+// #define OGID_CHAT_CHANNEL_LOGIN                         ( OGID_MSGBASE_OGMESSAGE + 2 )
+// chat channel login interface's ver: 0x0001000000000000 (20120614)
+message OGReqChatChannelLogin
+{
+    optional int64          Version         = 1 [default = 0x0001000000000000]; // 客户端版本
+    optional int32          ChannelID       = 2 [default = -1]; // 用户的渠道号
+    optional string         RoleName        = 3; // 角色名
+    optional string         ShowName        = 4 [default = ""]; // 显示名（如无可以不添）
+    optional int32          ChanneRoomlID   = 5 [default = 0]; // 频道号
+    optional bytes          CertStream      = 6; // 证书数据区 string
+    optional string         EnterMsg        = 7 [default = ""]; // 进入语
+    optional string         LeaveMsg        = 8 [default = ""]; // 退出语
+    optional bool           UseShowName     = 9 [default = false]; // 是否使用了昵称作为玩家标识(如果仅仅做显示用则不算)
+}
+
+message OGAckChatChannelLogin
+{
+    enum ErrorType
+    {
+        ET_UNKNOWN          = 0;
+        ET_ERROR_VERSION    = 1; // 客户端版本错误
+        ET_PARSE_FAILED     = 2; // 消息解析错误        
+        ET_VERIFY_FAILED    = 3; // 证书验证失败
+        ET_ERROR_PARAMS     = 4; // 登录参数错误
+        ET_REACH_LIMIT      = 5; // 达到了频道聊天室的最大人数限制(600人)
+    }
+    required ChatResult     Result          = 1;	
+    optional ErrorType      Reason          = 2 [default = ET_UNKNOWN];
+}
+
+// #define OGID_CHAT_MSG                                   ( OGID_MSGBASE_OGMESSAGE + 3 )
+// 聊天消息请求
+message OGReqChatMsg
+{
+    enum MsgType
+    {
+        MT_TEST             = 0x40000000; // 用于测试的消息
+        MT_NORMAL           = 0x00000001; // 普通消息
+        MT_SYS_PROMPT       = 0x00000008; // 系统提示
+        MT_INOUT            = 0x00000100; // 进出语
+        MT_VOICE            = 0x00000200; // 语音消息
+        MT_MATCH            = 0x00000400; // 比赛信息
+    }
+
+    optional MsgType    Type                = 1; // 消息类型
+    optional string     RoleName	        = 2; // 发言者角色名
+    optional string     ShowName            = 3 [default = ""]; // 发言者显示名
+    optional string     Msg                 = 4;
+    optional int32      VoiceID             = 5; // 语音ID
+    optional int64      Time                = 6; // 消息发送时间，由服务器填充
+}
+
+// 聊天消息回应
+message OGAckChatMsg
+{
+    enum ErrorType
+    {
+        ET_UNKNOWN          = 0;        
+        ET_BROADCAST_NONE   = 1; // 广播消息,所有用户均未广播成功
+        ET_BROADCAST_PART   = 2; // 广播消息,部分用户没有广播成功
+    }
+    
+    required ChatResult     Result	    = 1;
+    optional ErrorType      Reason      = 2 [default = ET_UNKNOWN];
+    optional int32          FailedCount = 3 [default = 1]; // 转发失败的用户数量
+    optional OGReqChatMsg   Req         = 4;
+}
+
+// 频道聊天
+// #define OGID_CHAT_CHANNEL_MSG                           ( OGID_MSGBASE_OGMESSAGE + 4 )
+message OGReqChatChannelMsg
+{
+    enum MsgType
+    {
+        MT_TEST             = 0x40000000; // 用于测试的消息
+        MT_NORMAL           = 0x00000001; // 普通消息
+        MT_SYS_PROMPT       = 0x00000008; // 系统提示
+        MT_INOUT            = 0x00000100; // 进出语
+        MT_VOICE            = 0x00000200; // 语音消息
+        MT_MATCH            = 0x00000400; // 比赛信息
+    }
+
+    optional MsgType    Type                = 1; // 消息类型
+    optional string     RoleName	        = 2; // 发言者角色名
+    optional string     ShowName            = 3 [default = ""]; // 发言者显示名
+    optional string     Msg                 = 4;
+    optional int32      VoiceID             = 5; // 语音ID
+    optional int64      Time                = 6; // 消息发送时间，由服务器填充
+}
+
+message OGAckChatChannelMsg
+{
+    enum ErrorType
+    {
+        ET_UNKNOWN          = 0;        
+        ET_BROADCAST_NONE   = 1; // 广播消息,所有用户均未广播成功
+        ET_BROADCAST_PART   = 2; // 广播消息,部分用户没有广播成功
+    }
+    
+    required ChatResult     Result	    = 1;
+    optional ErrorType      Reason      = 2 [default = ET_UNKNOWN];
+    optional int32          FailedCount = 3 [default = 1]; // 转发失败的用户数量
+    optional OGReqChatMsg   Req         = 4;
+}
+
+// #define OGID_CHAT_STATUSCHANGE                          ( OGID_MSGBASE_OGMESSAGE + 5 )
+// 用户状态变化
+message OGNtfStatusChange
+{
+    enum ActionType
+    {
+        UNCHANGED   = 0; // 未改变
+        ENTER       = 1; // 进入
+        LEAVE       = 2; // 离开
+    }
+    
+    optional string         RoleName    = 1; // 角色名
+    optional string         ShowName    = 2; // 显示名（如无可以不添）
+    optional ActionType     Action      = 3; // 状态变化
+    optional string         Msg         = 4; // 进入时为进入语，退出时为退出语
+    optional int64          Time        = 5;
+}
+
+
+
+//=========================================================================================
+//				ChatDB -> 聊天服务器 -> 客户端 (51 ~ 100)
+//=========================================================================================
+
+// 系统消息
+// #define OGID_CHAT_SYSMSG                                ( OGID_MSGBASE_OGMESSAGE + 51 )
+message OGNtfChatSysMsg
+{
+    // 消息类型
+    enum MsgType
+    {
+        MT_TEST     = 0; // 用于测试的消息
+        MT_SYS      = 1; // 来自后台的系统消息
+        MT_TRIGGER  = 2; // 用户触发的系统消息
+        MT_HORN     = 3; // 喇叭
+        MT_WHISPER  = 4; // 私聊
+        MT_POPUP    = 5; // 强制消息推送，客户端收到后一般需要弹框显示，具体依策划方案而定
+    }
+    
+    optional MsgType        Type            = 1;
+    repeated Pos_Position   Pos             = 2; // 目标位置
+    optional string         Msg             = 3; // 消息内容
+    optional int64          Time            = 4; // 消息发送时间，由服务器填充(从1970/1/1以来的秒数)
+    optional int32          GameID          = 5; // 发送者所属游戏ID(用于喇叭或用户触发的系统消息)
+    optional string         RoleName        = 6 [default = ""]; // 发送者角色名(用于喇叭，私聊，或用户触发的系统消息)
+    optional string         ShowName        = 7 [default = ""]; // 发送者显示名(用于喇叭，私聊，或用户触发的系统消息)
+    optional string         RecvRoleName    = 8 [default = ""]; // 接收者角色名(用于私聊或强制显示消息)
+    optional string         RecvShowName    = 9 [default = ""]; // 接收者显示名(用于私聊或强制显示消息)
+    optional int32          ChannelID       = 10; // 发送者所属的渠道ID
+    optional int32          Level           = 11; // 优先级
+}

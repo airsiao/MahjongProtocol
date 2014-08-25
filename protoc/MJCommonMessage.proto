@@ -1,0 +1,50 @@
+package com.ourgame.mahjong.message;
+
+//========================================================================================
+// 麻将公用数值对象消息结构定义
+// 创建：郭英奎、刘潇
+//========================================================================================
+
+// GAME信息
+message GameInfo{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	required uint64 gameId = 3;
+	required uint64 gameServer = 4;
+}
+
+// 房间
+message Room{
+	required uint32 roomId = 1;				//房间ID
+	required string roomName = 2;			//房间名称
+	required uint32 roomType = 3;			//房间类型	1-自动配桌房间；2-手动配桌房间
+	required uint32 gameType = 4;			//游戏类型	1-血流成河
+	optional uint32 userAmount = 5;			//房间用户数
+	optional uint32 enterBuyIn = 6;			//买入值
+	optional uint32 unitValue = 7;			//兑换比值，每奖分价值万能豆
+}
+
+// 桌子
+message Table{
+	required uint32 tableId = 1;			//桌子ID
+	required string tableName  =2;			//桌子名
+	required uint32 playerAmount = 3;		//用户数量
+	required uint32 maxPlayerAmount = 4;	//最大游戏人数
+	required uint64	enterBuyin = 5;			//进桌买入量
+	required uint64 enterScore = 6;			//买入所换的积分数量
+	required uint32 unitValue = 7;			//游戏每奖分折合桌子积分的数量
+	required uint32 minScore = 8;			//最低积分，积分低于此值将会被强制要求重新买入，或踢出
+}
+
+// 玩家
+message TablePlayer{
+	required sint32 seat = 1;
+	required uint64 userId = 2;
+	required string nickname = 3;
+	required sint32 score = 4;				//sint考虑到比赛时可能有负分，房间没有负分
+	optional uint32 gender = 5;				//性别
+	optional string headImage = 6;			//头像连接
+	optional uint32 level = 7;				//等级
+	optional uint64 experience = 8;			//经验
+	optional float  winRate = 9;			//胜率
+}

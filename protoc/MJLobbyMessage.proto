@@ -1,0 +1,127 @@
+package com.ourgame.mahjong.message;
+
+//========================================================================================
+// 麻将大厅服务消息结构定义
+// 创建：郭英奎、刘潇
+// OGID_BASE_MESSAGE = 0X00000000
+// OGID_USER_MESSAGE = OGID_BASE_MESSAGE + 100
+// CLENT	= 0X00000000
+// SERVER	= 0X00000001
+//========================================================================================
+
+import "MJCommonMessage.proto";
+
+//========================================================================================
+// 心跳
+// #define OGID_BASE_HEART					( OGID_BASE_MESSAGE + 1 )
+
+//========================================================================================
+// 用户登录
+// #define OGID_USER_LOGIN					( OGID_USER_MESSAGE + 1 )
+message CReqLogin{
+	required string ourgameId = 1;			//联众ID
+	required string username = 2;			//用户名
+	required string rolename = 3;			//角色名
+	optional string nickname = 4;			//昵称
+	optional string ticket = 5; 			//证书用余用户认证
+	optional string sessionKey = 6;			//上一次登录，服务器发给客户端的SessionKey
+	optional string headImage = 7; 			//头像连接
+	optional uint32 gender = 8;				//性别，男1，女0
+	optional uint32 channelId = 9;			//渠道号
+	optional uint32 version = 10;			//版本号
+	optional bool force = 11; 				//是否强行登陆，如果用户应经在线，force=false的情况，登陆失败，force = true登陆成功，踢掉另一个登陆
+	optional bool antiAddict = 12;			//是否防沉迷
+}
+
+message SAckLogin{
+	required uint32 result = 1;				//登录是否成功
+	optional string failReason = 2;			//失败原因
+	optional string ourgameId = 3;			//联众ID
+	optional string sessionKey = 4;			//下次登录发回此SessionKey
+	optional uint64 userId = 5;				//用户ID
+	optional uint32 money = 6;				//货币
+	optional uint32 experience = 7;			//经验
+	optional uint32 level = 8;				//等级
+	optional uint32 masterScore = 9;		//大师分
+	repeated GameInfo games = 10;			//该用户正在游戏中的游戏信息
+}
+
+//========================================================================================
+// 用户退出
+// #define OGID_USER_LOGOUT					( OGID_USER_MESSAGE + 5 )
+message CReqLogout{
+	optional string sessionKey = 1;
+}
+
+message SAckLogout{
+	optional uint32 result = 1;
+}
+
+
+//========================================================================================
+// 获取排行榜
+// #define OGID_RANK_DATA					( OGID_USER_MESSAGE + 7 )
+message CReqRankList{
+	optional uint32 type = 1;				//排行榜类型
+	optional uint32 page = 2;				//所取页数
+	optional uint32 size = 3;				//所取条数
+}
+
+message SAckRankList{
+	message Item{
+		required uint32 serial = 1;			//排名
+		required string key = 2;			//键
+		required uint32 value = 3;			//值
+	}
+	optional uint32 type = 1;				//排行榜类型
+	optional uint32 page = 2;				//所取页数
+	optional uint32 size = 3;				//所取条数
+	repeated Item data = 4;
+}
+
+//========================================================================================
+// 更新用户信息
+// #define OGID_USER_DATA					( OGID_USER_MESSAGE + 13 )
+message CReqUserData{
+}
+
+message SAckUserData{
+	required uint32 money = 1;				//当前货币量
+	optional uint32 experience = 2;			//经验
+	optional uint32 level = 3;				//等级
+	optional uint32 masterScore = 4;		//大师分
+}
+
+//========================================================================================
+// 全局广播消息
+// #define OGID_GLOBAL_NOTICE				( OGID_USER_MESSAGE + 15 )
+message NtfGlobalNotice{
+	required uint32 msgType = 1;			//类型，0为全局广播
+	required string content = 2;			//消息体
+	required uint64 sender = 3;				//发送者
+	optional uint64 receiver = 4;			//接收着，用于私聊
+	optional string senderName = 5;			//发送者昵称
+}
+
+//========================================================================================
+// 全局聊天
+// #define OGID_GLOBAL_CHAT					( OGID_USER_MESSAGE + 17 )
+message CReqGlobalChat{
+	required uint32 msgType = 1;			//类型，0为全局广播
+	required string content = 2;			//消息体
+	optional uint64 receiver = 3;			//接收着，用于私聊
+}
+message SAckGlobalChat{
+	optional uint32 result = 1;				//发送结果
+	optional uint32 price = 2;				//花费价格
+}
+
+
+//========================================================================================
+// 获取全局在线人数
+// #define OGID_USER_COUNT					( OGID_USER_MESSAGE + 19 )
+message CReqUserAmount{
+}
+message SAckUserAmount{
+	required uint32 amount = 1;	
+}

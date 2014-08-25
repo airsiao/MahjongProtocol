@@ -1,0 +1,170 @@
+package com.ourgame.mahjong.message;
+
+//========================================================================================
+// 麻将房间服务消息结构定义
+// 创建：郭英奎、刘潇
+// OGID_BASE_MESSAGE = 0X00000000
+// OGID_ROOM_MESSAGE = OGID_BASE_MESSAGE + 200
+// CLENT	= 0X00000000
+// SERVER	= 0X00000001
+//========================================================================================
+
+import "MJCommonMessage.proto";
+
+//========================================================================================
+// 房间列表
+// #define OGID_ROOM_LIST					( OGID_ROOM_MESSAGE + 1 )
+message CReqRoomList{
+}
+
+message SAckRoomList{
+	repeated Room rooms = 1;				//房间列表
+}
+
+//========================================================================================
+// 进入房间
+// #define OGID_ROOM_ENTER					( OGID_ROOM_MESSAGE + 11 )
+message CReqEnterRoom{
+	required uint32 roomId = 1;				//房间ID
+}
+
+message SAckEnterRoom{
+	required int32 result = 1;
+	required uint32 roomId = 2;				//房间ID
+	optional uint32 userAmount = 4;
+}
+
+//========================================================================================
+// 离开房间
+// #define OGID_ROOM_LEAVE					( OGID_ROOM_MESSAGE + 13 )
+message CReqLeaveRoom{
+	required uint32 roomId = 1;
+}
+
+message SAckLeaveRoom{
+	required int32 result = 2;
+	optional string failReason = 3;
+}
+
+//========================================================================================
+// 桌子列表
+// #define OGID_TABLE_LIST					( OGID_ROOM_MESSAGE + 15 )
+message CReqTables{
+	required uint32 roomId = 1;				//房间ID
+}
+
+message SAckTables{
+	required uint32 roomId = 1;				//房间ID
+	repeated Table tables = 2;
+}
+
+//========================================================================================
+// 进入桌子
+// #define OGID_TABLE_ENTER					( OGID_ROOM_MESSAGE + 17 )
+message CReqEnterTable{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+}
+
+message SAckEnterTable{
+	required uint32 result = 1;
+	required uint32 roomId = 2;
+	required uint32 tableId = 3;
+	repeated TablePlayer player = 4;
+}
+
+//========================================================================================
+// 离开桌子
+// #define OGID_TABLE_LEAVE					( OGID_ROOM_MESSAGE + 19 )
+message CReqLeaveTable{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+}
+
+message SAckLeaveTable{
+	required int32 result = 3;
+	optional string failReason = 4;
+}
+
+//========================================================================================
+// 准备
+// #define OGID_STAND_BY					( OGID_ROOM_MESSAGE + 25 )
+message CReqStandBy{
+}
+message SAckStandBy{
+	required uint32 result = 1;
+}
+
+//========================================================================================
+// 桌子人数变更
+// #define OGID_TABLE_PLAYER_COUNT			( OGID_ROOM_MESSAGE + 41 )
+message NtfTablePlayerChanged{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	required uint32 playerAmount = 3;
+}
+
+//========================================================================================
+// 有桌子解散
+// #define OGID_TABLE_DISMISS				( OGID_ROOM_MESSAGE + 43 )
+message NtfTableDismissed{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	optional uint32 reason = 3;				//默认为0，服务器维护中，reson=9;
+}
+
+//========================================================================================
+// 有桌子创建
+// #define OGID_TABLE_CREATE				( OGID_ROOM_MESSAGE + 45 )
+message NtfNewTable{
+	required uint32 roomId = 1;
+	required Table table = 2;
+}
+
+//========================================================================================
+// 快速开始
+// #define OGID_QUICK_START					( OGID_ROOM_MESSAGE + 51 )
+message CReqQuickStartGame{
+	repeated uint32 roomIds = 1;			//可选的房间号
+}
+
+message SAckQuickStartGame{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	optional sint32 seat = 3;
+}
+
+//========================================================================================
+// 更新房间用户数
+// #define OGID_PLAYER_COUNT				( OGID_ROOM_MESSAGE + 69 )
+message CReqRoomPlayerAmount{
+	repeated uint32 roomIds = 1;
+}
+message SAckRoomPlayerAmount{
+	message RoomPlayerAmount{
+		required uint32 roomId = 1;
+		required uint32 playerAmount = 2;
+	}
+	repeated RoomPlayerAmount roomPlayerAmounts = 1;
+}
+
+//========================================================================================
+// 获取桌子信息
+//#define OGID_TABLE_INFO					( OGID_ROOM_MESSAGE + 77 )
+message CReqScanTable{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+}
+message SAckScanTable{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	repeated TablePlayer player = 3;
+}
+
+//========================================================================================
+// 邀请进入桌子
+// #define OGID_TABLE_INVITE				( OGID_ROOM_MESSAGE + 79 )
+message NtfInviteTable{
+	optional uint32 roomId = 1;
+	optional uint32 tableId = 2;
+}

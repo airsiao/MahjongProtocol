@@ -1,0 +1,169 @@
+package com.ourgame.mahjong.message;
+
+//========================================================================================
+// 麻将桌子服务消息结构定义
+// 创建：郭英奎、刘潇
+// OGID_BASE_MESSAGE = 0X00000000
+// OGID_ROOM_MESSAGE = OGID_BASE_MESSAGE + 200
+// CLENT	= 0X00000000
+// SERVER	= 0X00000001
+//========================================================================================
+
+import "MJCommonMessage.proto";
+
+//========================================================================================
+// 坐下
+// #define OGID_TABLE_SIT_DOWN					( OGID_ROOM_MESSAGE + 21 )
+message CReqSitDown{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	required sint32 seat = 3;
+	optional bool obey = 4;						//如果坐位被占，是否可以选择本桌其他空座
+}
+message SAckSitDown{
+	required uint32 result = 1;					//0-成功，1-座位有人，2-带入失败，3-没有该座位（座位号错误），4-已经入座
+	required uint32 roomId = 2;
+	required uint32 tableId = 3;
+	required sint32 seat = 4;
+}
+
+//========================================================================================
+// 站起
+// #define OGID_TABLE_STAND_UP					( OGID_ROOM_MESSAGE + 23 )
+message CReqStandUp{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+}
+
+message SAckStandUp{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	required sint32 seat = 3;
+	required uint32 result = 4;
+	required uint32 reason = 5;					//1-买入失败，2-用户离开，3-托管站起
+}
+
+//========================================================================================
+// 桌子有用户坐下
+// #define OGID_TABLE_PLAYER_SIT_DOWN			( OGID_ROOM_MESSAGE + 27 )
+message NtfPlayerSitDown{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	required uint64 userId = 3;
+	required sint32 seat = 4;
+}
+
+//========================================================================================
+// 桌子有用户站起
+// #define OGID_TABLE_PLAYER_STAND_UP			( OGID_ROOM_MESSAGE + 29 )
+message NtfPlayerStandUp{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	required sint32 seat = 3;
+}
+
+//========================================================================================
+// 桌子有用户进入
+// #define OGID_TABLE_PLAYER_ENTER				( OGID_ROOM_MESSAGE + 31 )
+message NtfPlayerEnterTable{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	required TablePlayer player = 3;
+}
+
+//========================================================================================
+// 桌子有用户离开
+// #define OGID_TABLE_PLAYER_LEAVE				( OGID_ROOM_MESSAGE + 33 )
+message NtfPlayerLeaveTable{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	required uint64 userId = 3;
+}
+
+//========================================================================================
+// 邀请进入游戏
+// #define OGID_GAME_INVITE						( OGID_ROOM_MESSAGE + 49 )
+message NtfInviteGame{
+	required uint64 gameId = 1;
+	required uint64 serverId = 2;
+	optional uint32 gameType = 3;
+	optional uint32 roomId = 4;
+	optional uint32 tableId = 5;
+}
+
+//========================================================================================
+// 桌内聊天
+// #define OGID_TABLE_CHAT						( OGID_ROOM_MESSAGE + 53 )
+message CReqTableChat{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;				//0-系统消息，1-桌内公聊，2-桌内私聊，3-桌内表情，4-桌内语音
+	required uint32 type = 3 [default=0];		//消息类型
+	required string content = 4;				//消息体
+	optional uint64 receiver = 5;				//发给谁，如果to为null, 则发给桌上所有人
+}
+message SAckTableChat{
+	required uint32 roomId = 1;
+	required uint32 tableId = 2;
+	required uint32 type = 3;
+	required string content = 4;
+	required uint64 sender = 5;
+	optional uint64 receiver = 6;
+}
+
+//========================================================================================
+// 自动买入
+// #define OGID_AUTO_BUYIN						( OGID_ROOM_MESSAGE + 55 )
+message CReqAutoRefill{
+	required uint32 autoRefill = 1;				//0为不自动补充，1，自动补充筹码
+}
+message SAckAutoRefill{
+	required uint32 autoRefill = 1;				//0为不自动补充，1，自动补充筹码
+}
+
+//========================================================================================
+// 下局离开
+// #define OGID_AUTO_LEAVE						( OGID_ROOM_MESSAGE + 57 )
+message CReqNextHandLeave{
+	required uint32 nextHandLeave = 1;			//0为取消下局离开，1，下局离开
+}
+message SAckNextHandLeave{
+	required uint32 nextHandLeave = 1;			//0为取消下局离开，1，下局离开
+}
+
+//========================================================================================
+// 用户积分变更
+// #define OGID_PLAYER_SCORE					( OGID_ROOM_MESSAGE + 59 )
+message NtfScoreChanged{
+	required uint64 userId = 1;					//用户ID
+	required uint32 score = 2;					//用户积分
+}
+
+//========================================================================================
+// 请求带入
+// #define OGID_BUY_IN							( OGID_ROOM_MESSAGE + 61 )
+message SReqNeedRefillScore{
+}
+message CAckConfirmRefillScore{
+	required bool refill = 1 [default=true];
+}
+
+//========================================================================================
+// 优秀牌局
+// #define OGID_GREAT_GAME						( OGID_ROOM_MESSAGE + 65 )
+message NtfGreatGame{
+	required uint32 seat = 1;					//座位号
+	required uint64 userId = 2;					//用户ID
+	required uint32	level = 3;					//等级 A:1 B:2,C:3,D:4
+	required uint32 star = 4;					//星   1,2,3
+	optional uint32 winScore = 5;				//赢万能豆
+	optional uint32 servicePay = 6;				//服务费
+}
+
+//========================================================================================
+// 游戏开始倒计时
+// #define OGID_GAMESTART_COUNTDOWN				( OGID_ROOM_MESSAGE + 67 )
+message CReqExpectGameStart{
+}
+message SAckExpectGameStart{
+	required uint32 time = 1;					//预计游戏开始时间，单位：秒
+}
