@@ -7,9 +7,9 @@ package com.ourgame.mahjong.message.chat {
 	import flash.utils.IDataOutput;
 	import flash.utils.IExternalizable;
 	import flash.errors.IOError;
+	import com.ourgame.mahjong.message.chat.ChatResult;
 	import com.ourgame.mahjong.message.chat.OGReqChatMsg;
 	import com.ourgame.mahjong.message.chat.OGAckChatChannelMsg.ErrorType;
-	import com.ourgame.mahjong.message.chat.ChatResult;
 	// @@protoc_insertion_point(imports)
 
 	// @@protoc_insertion_point(class_metadata)

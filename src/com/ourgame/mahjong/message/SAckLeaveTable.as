@@ -14,14 +14,14 @@ package com.ourgame.mahjong.message {
 		/**
 		 *  @private
 		 */
-		public static const RESULT:FieldDescriptor$TYPE_INT32 = new FieldDescriptor$TYPE_INT32("com.ourgame.mahjong.message.SAckLeaveTable.result", "result", (3 << 3) | com.netease.protobuf.WireType.VARINT);
+		public static const RESULT:FieldDescriptor$TYPE_INT32 = new FieldDescriptor$TYPE_INT32("com.ourgame.mahjong.message.SAckLeaveTable.result", "result", (1 << 3) | com.netease.protobuf.WireType.VARINT);
 
 		public var result:int;
 
 		/**
 		 *  @private
 		 */
-		public static const FAILREASON:FieldDescriptor$TYPE_STRING = new FieldDescriptor$TYPE_STRING("com.ourgame.mahjong.message.SAckLeaveTable.failReason", "failReason", (4 << 3) | com.netease.protobuf.WireType.LENGTH_DELIMITED);
+		public static const FAILREASON:FieldDescriptor$TYPE_STRING = new FieldDescriptor$TYPE_STRING("com.ourgame.mahjong.message.SAckLeaveTable.failReason", "failReason", (2 << 3) | com.netease.protobuf.WireType.LENGTH_DELIMITED);
 
 		private var failReason$field:String;
 
@@ -45,10 +45,10 @@ package com.ourgame.mahjong.message {
 		 *  @private
 		 */
 		override com.netease.protobuf.used_by_generated_code final function writeToBuffer(output:com.netease.protobuf.WritingBuffer):void {
-			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 3);
+			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 1);
 			com.netease.protobuf.WriteUtils.write$TYPE_INT32(output, this.result);
 			if (hasFailReason) {
-				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.LENGTH_DELIMITED, 4);
+				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.LENGTH_DELIMITED, 2);
 				com.netease.protobuf.WriteUtils.write$TYPE_STRING(output, failReason$field);
 			}
 			for (var fieldKey:* in this) {
@@ -65,14 +65,14 @@ package com.ourgame.mahjong.message {
 			while (input.bytesAvailable > bytesAfterSlice) {
 				var tag:uint = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
 				switch (tag >> 3) {
-				case 3:
+				case 1:
 					if (result$count != 0) {
 						throw new flash.errors.IOError('Bad data format: SAckLeaveTable.result cannot be set twice.');
 					}
 					++result$count;
 					this.result = com.netease.protobuf.ReadUtils.read$TYPE_INT32(input);
 					break;
-				case 4:
+				case 2:
 					if (failReason$count != 0) {
 						throw new flash.errors.IOError('Bad data format: SAckLeaveTable.failReason cannot be set twice.');
 					}

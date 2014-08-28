@@ -10781,9 +10781,24 @@ public final class MJLobbyMessage {
      */
     int getResult();
 
-    // optional uint32 price = 2;
+    // optional string failReason = 2;
     /**
-     * <code>optional uint32 price = 2;</code>
+     * <code>optional string failReason = 2;</code>
+     */
+    boolean hasFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    java.lang.String getFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getFailReasonBytes();
+
+    // optional uint32 price = 3;
+    /**
+     * <code>optional uint32 price = 3;</code>
      *
      * <pre>
      *花费价格
@@ -10791,7 +10806,7 @@ public final class MJLobbyMessage {
      */
     boolean hasPrice();
     /**
-     * <code>optional uint32 price = 2;</code>
+     * <code>optional uint32 price = 3;</code>
      *
      * <pre>
      *花费价格
@@ -10855,8 +10870,13 @@ public final class MJLobbyMessage {
               result_ = input.readUInt32();
               break;
             }
-            case 16: {
+            case 18: {
               bitField0_ |= 0x00000002;
+              failReason_ = input.readBytes();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
               price_ = input.readUInt32();
               break;
             }
@@ -10924,21 +10944,64 @@ public final class MJLobbyMessage {
       return result_;
     }
 
-    // optional uint32 price = 2;
-    public static final int PRICE_FIELD_NUMBER = 2;
+    // optional string failReason = 2;
+    public static final int FAILREASON_FIELD_NUMBER = 2;
+    private java.lang.Object failReason_;
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public boolean hasFailReason() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public java.lang.String getFailReason() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          failReason_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFailReasonBytes() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        failReason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional uint32 price = 3;
+    public static final int PRICE_FIELD_NUMBER = 3;
     private int price_;
     /**
-     * <code>optional uint32 price = 2;</code>
+     * <code>optional uint32 price = 3;</code>
      *
      * <pre>
      *花费价格
      * </pre>
      */
     public boolean hasPrice() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional uint32 price = 2;</code>
+     * <code>optional uint32 price = 3;</code>
      *
      * <pre>
      *花费价格
@@ -10950,6 +11013,7 @@ public final class MJLobbyMessage {
 
     private void initFields() {
       result_ = 0;
+      failReason_ = "";
       price_ = 0;
     }
     private byte memoizedIsInitialized = -1;
@@ -10968,7 +11032,10 @@ public final class MJLobbyMessage {
         output.writeUInt32(1, result_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeUInt32(2, price_);
+        output.writeBytes(2, getFailReasonBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeUInt32(3, price_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -10985,7 +11052,11 @@ public final class MJLobbyMessage {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(2, price_);
+          .computeBytesSize(2, getFailReasonBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, price_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -11105,8 +11176,10 @@ public final class MJLobbyMessage {
         super.clear();
         result_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        price_ = 0;
+        failReason_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        price_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -11142,6 +11215,10 @@ public final class MJLobbyMessage {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
+        result.failReason_ = failReason_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
         result.price_ = price_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -11161,6 +11238,11 @@ public final class MJLobbyMessage {
         if (other == com.ourgame.mahjong.message.MJLobbyMessage.SAckGlobalChat.getDefaultInstance()) return this;
         if (other.hasResult()) {
           setResult(other.getResult());
+        }
+        if (other.hasFailReason()) {
+          bitField0_ |= 0x00000002;
+          failReason_ = other.failReason_;
+          onChanged();
         }
         if (other.hasPrice()) {
           setPrice(other.getPrice());
@@ -11241,20 +11323,94 @@ public final class MJLobbyMessage {
         return this;
       }
 
-      // optional uint32 price = 2;
+      // optional string failReason = 2;
+      private java.lang.Object failReason_ = "";
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public boolean hasFailReason() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public java.lang.String getFailReason() {
+        java.lang.Object ref = failReason_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          failReason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFailReasonBytes() {
+        java.lang.Object ref = failReason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          failReason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReason(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder clearFailReason() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        failReason_ = getDefaultInstance().getFailReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional uint32 price = 3;
       private int price_ ;
       /**
-       * <code>optional uint32 price = 2;</code>
+       * <code>optional uint32 price = 3;</code>
        *
        * <pre>
        *花费价格
        * </pre>
        */
       public boolean hasPrice() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional uint32 price = 2;</code>
+       * <code>optional uint32 price = 3;</code>
        *
        * <pre>
        *花费价格
@@ -11264,27 +11420,27 @@ public final class MJLobbyMessage {
         return price_;
       }
       /**
-       * <code>optional uint32 price = 2;</code>
+       * <code>optional uint32 price = 3;</code>
        *
        * <pre>
        *花费价格
        * </pre>
        */
       public Builder setPrice(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         price_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint32 price = 2;</code>
+       * <code>optional uint32 price = 3;</code>
        *
        * <pre>
        *花费价格
        * </pre>
        */
       public Builder clearPrice() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         price_ = 0;
         onChanged();
         return this;
@@ -12132,10 +12288,10 @@ public final class MJLobbyMessage {
       "e\030\001 \002(\r\022\017\n\007content\030\002 \002(\t\022\016\n\006sender\030\003 \002(\004" +
       "\022\020\n\010receiver\030\004 \001(\004\022\022\n\nsenderName\030\005 \001(\t\"D" +
       "\n\016CReqGlobalChat\022\017\n\007msgType\030\001 \002(\r\022\017\n\007con" +
-      "tent\030\002 \002(\t\022\020\n\010receiver\030\003 \001(\004\"/\n\016SAckGlob" +
-      "alChat\022\016\n\006result\030\001 \001(\r\022\r\n\005price\030\002 \001(\r\"\020\n" +
-      "\016CReqUserAmount\" \n\016SAckUserAmount\022\016\n\006amo",
-      "unt\030\001 \002(\r"
+      "tent\030\002 \002(\t\022\020\n\010receiver\030\003 \001(\004\"C\n\016SAckGlob" +
+      "alChat\022\016\n\006result\030\001 \001(\r\022\022\n\nfailReason\030\002 \001" +
+      "(\t\022\r\n\005price\030\003 \001(\r\"\020\n\016CReqUserAmount\" \n\016S",
+      "AckUserAmount\022\016\n\006amount\030\001 \002(\r"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -12213,7 +12369,7 @@ public final class MJLobbyMessage {
           internal_static_com_ourgame_mahjong_message_SAckGlobalChat_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_ourgame_mahjong_message_SAckGlobalChat_descriptor,
-              new java.lang.String[] { "Result", "Price", });
+              new java.lang.String[] { "Result", "FailReason", "Price", });
           internal_static_com_ourgame_mahjong_message_CReqUserAmount_descriptor =
             getDescriptor().getMessageTypes().get(11);
           internal_static_com_ourgame_mahjong_message_CReqUserAmount_fieldAccessorTable = new

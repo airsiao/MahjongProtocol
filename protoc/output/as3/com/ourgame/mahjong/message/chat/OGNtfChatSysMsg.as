@@ -7,8 +7,8 @@ package com.ourgame.mahjong.message.chat {
 	import flash.utils.IDataOutput;
 	import flash.utils.IExternalizable;
 	import flash.errors.IOError;
-	import com.ourgame.mahjong.message.chat.OGNtfChatSysMsg.MsgType;
 	import com.ourgame.mahjong.message.chat.Pos_Position;
+	import com.ourgame.mahjong.message.chat.OGNtfChatSysMsg.MsgType;
 	// @@protoc_insertion_point(imports)
 
 	// @@protoc_insertion_point(class_metadata)

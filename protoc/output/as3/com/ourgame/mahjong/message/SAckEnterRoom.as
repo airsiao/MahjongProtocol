@@ -21,7 +21,30 @@ package com.ourgame.mahjong.message {
 		/**
 		 *  @private
 		 */
-		public static const ROOMID:FieldDescriptor$TYPE_UINT32 = new FieldDescriptor$TYPE_UINT32("com.ourgame.mahjong.message.SAckEnterRoom.roomId", "roomId", (2 << 3) | com.netease.protobuf.WireType.VARINT);
+		public static const FAILREASON:FieldDescriptor$TYPE_STRING = new FieldDescriptor$TYPE_STRING("com.ourgame.mahjong.message.SAckEnterRoom.failReason", "failReason", (2 << 3) | com.netease.protobuf.WireType.LENGTH_DELIMITED);
+
+		private var failReason$field:String;
+
+		public function clearFailReason():void {
+			failReason$field = null;
+		}
+
+		public function get hasFailReason():Boolean {
+			return failReason$field != null;
+		}
+
+		public function set failReason(value:String):void {
+			failReason$field = value;
+		}
+
+		public function get failReason():String {
+			return failReason$field;
+		}
+
+		/**
+		 *  @private
+		 */
+		public static const ROOMID:FieldDescriptor$TYPE_UINT32 = new FieldDescriptor$TYPE_UINT32("com.ourgame.mahjong.message.SAckEnterRoom.roomId", "roomId", (3 << 3) | com.netease.protobuf.WireType.VARINT);
 
 		public var roomId:uint;
 
@@ -58,7 +81,11 @@ package com.ourgame.mahjong.message {
 		override com.netease.protobuf.used_by_generated_code final function writeToBuffer(output:com.netease.protobuf.WritingBuffer):void {
 			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 1);
 			com.netease.protobuf.WriteUtils.write$TYPE_INT32(output, this.result);
-			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 2);
+			if (hasFailReason) {
+				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.LENGTH_DELIMITED, 2);
+				com.netease.protobuf.WriteUtils.write$TYPE_STRING(output, failReason$field);
+			}
+			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 3);
 			com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, this.roomId);
 			if (hasUserAmount) {
 				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 4);
@@ -74,6 +101,7 @@ package com.ourgame.mahjong.message {
 		 */
 		override com.netease.protobuf.used_by_generated_code final function readFromSlice(input:flash.utils.IDataInput, bytesAfterSlice:uint):void {
 			var result$count:uint = 0;
+			var failReason$count:uint = 0;
 			var roomId$count:uint = 0;
 			var userAmount$count:uint = 0;
 			while (input.bytesAvailable > bytesAfterSlice) {
@@ -87,6 +115,13 @@ package com.ourgame.mahjong.message {
 					this.result = com.netease.protobuf.ReadUtils.read$TYPE_INT32(input);
 					break;
 				case 2:
+					if (failReason$count != 0) {
+						throw new flash.errors.IOError('Bad data format: SAckEnterRoom.failReason cannot be set twice.');
+					}
+					++failReason$count;
+					this.failReason = com.netease.protobuf.ReadUtils.read$TYPE_STRING(input);
+					break;
+				case 3:
 					if (roomId$count != 0) {
 						throw new flash.errors.IOError('Bad data format: SAckEnterRoom.roomId cannot be set twice.');
 					}

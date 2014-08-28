@@ -21,21 +21,44 @@ package com.ourgame.mahjong.message {
 		/**
 		 *  @private
 		 */
-		public static const ROOMID:FieldDescriptor$TYPE_UINT32 = new FieldDescriptor$TYPE_UINT32("com.ourgame.mahjong.message.SAckSitDown.roomId", "roomId", (2 << 3) | com.netease.protobuf.WireType.VARINT);
+		public static const FAILREASON:FieldDescriptor$TYPE_STRING = new FieldDescriptor$TYPE_STRING("com.ourgame.mahjong.message.SAckSitDown.failReason", "failReason", (2 << 3) | com.netease.protobuf.WireType.LENGTH_DELIMITED);
+
+		private var failReason$field:String;
+
+		public function clearFailReason():void {
+			failReason$field = null;
+		}
+
+		public function get hasFailReason():Boolean {
+			return failReason$field != null;
+		}
+
+		public function set failReason(value:String):void {
+			failReason$field = value;
+		}
+
+		public function get failReason():String {
+			return failReason$field;
+		}
+
+		/**
+		 *  @private
+		 */
+		public static const ROOMID:FieldDescriptor$TYPE_UINT32 = new FieldDescriptor$TYPE_UINT32("com.ourgame.mahjong.message.SAckSitDown.roomId", "roomId", (3 << 3) | com.netease.protobuf.WireType.VARINT);
 
 		public var roomId:uint;
 
 		/**
 		 *  @private
 		 */
-		public static const TABLEID:FieldDescriptor$TYPE_UINT32 = new FieldDescriptor$TYPE_UINT32("com.ourgame.mahjong.message.SAckSitDown.tableId", "tableId", (3 << 3) | com.netease.protobuf.WireType.VARINT);
+		public static const TABLEID:FieldDescriptor$TYPE_UINT32 = new FieldDescriptor$TYPE_UINT32("com.ourgame.mahjong.message.SAckSitDown.tableId", "tableId", (4 << 3) | com.netease.protobuf.WireType.VARINT);
 
 		public var tableId:uint;
 
 		/**
 		 *  @private
 		 */
-		public static const SEAT:FieldDescriptor$TYPE_SINT32 = new FieldDescriptor$TYPE_SINT32("com.ourgame.mahjong.message.SAckSitDown.seat", "seat", (4 << 3) | com.netease.protobuf.WireType.VARINT);
+		public static const SEAT:FieldDescriptor$TYPE_SINT32 = new FieldDescriptor$TYPE_SINT32("com.ourgame.mahjong.message.SAckSitDown.seat", "seat", (5 << 3) | com.netease.protobuf.WireType.VARINT);
 
 		public var seat:int;
 
@@ -45,11 +68,15 @@ package com.ourgame.mahjong.message {
 		override com.netease.protobuf.used_by_generated_code final function writeToBuffer(output:com.netease.protobuf.WritingBuffer):void {
 			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 1);
 			com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, this.result);
-			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 2);
-			com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, this.roomId);
+			if (hasFailReason) {
+				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.LENGTH_DELIMITED, 2);
+				com.netease.protobuf.WriteUtils.write$TYPE_STRING(output, failReason$field);
+			}
 			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 3);
-			com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, this.tableId);
+			com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, this.roomId);
 			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 4);
+			com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, this.tableId);
+			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 5);
 			com.netease.protobuf.WriteUtils.write$TYPE_SINT32(output, this.seat);
 			for (var fieldKey:* in this) {
 				super.writeUnknown(output, fieldKey);
@@ -61,6 +88,7 @@ package com.ourgame.mahjong.message {
 		 */
 		override com.netease.protobuf.used_by_generated_code final function readFromSlice(input:flash.utils.IDataInput, bytesAfterSlice:uint):void {
 			var result$count:uint = 0;
+			var failReason$count:uint = 0;
 			var roomId$count:uint = 0;
 			var tableId$count:uint = 0;
 			var seat$count:uint = 0;
@@ -75,20 +103,27 @@ package com.ourgame.mahjong.message {
 					this.result = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
 					break;
 				case 2:
+					if (failReason$count != 0) {
+						throw new flash.errors.IOError('Bad data format: SAckSitDown.failReason cannot be set twice.');
+					}
+					++failReason$count;
+					this.failReason = com.netease.protobuf.ReadUtils.read$TYPE_STRING(input);
+					break;
+				case 3:
 					if (roomId$count != 0) {
 						throw new flash.errors.IOError('Bad data format: SAckSitDown.roomId cannot be set twice.');
 					}
 					++roomId$count;
 					this.roomId = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
 					break;
-				case 3:
+				case 4:
 					if (tableId$count != 0) {
 						throw new flash.errors.IOError('Bad data format: SAckSitDown.tableId cannot be set twice.');
 					}
 					++tableId$count;
 					this.tableId = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
 					break;
-				case 4:
+				case 5:
 					if (seat$count != 0) {
 						throw new flash.errors.IOError('Bad data format: SAckSitDown.seat cannot be set twice.');
 					}

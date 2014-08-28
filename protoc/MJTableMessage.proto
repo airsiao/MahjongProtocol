@@ -22,9 +22,10 @@ message CReqSitDown{
 }
 message SAckSitDown{
 	required uint32 result = 1;					//0-成功，1-座位有人，2-带入失败，3-没有该座位（座位号错误），4-已经入座
-	required uint32 roomId = 2;
-	required uint32 tableId = 3;
-	required sint32 seat = 4;
+	optional string failReason = 2;
+	required uint32 roomId = 3;
+	required uint32 tableId = 4;
+	required sint32 seat = 5;
 }
 
 //========================================================================================

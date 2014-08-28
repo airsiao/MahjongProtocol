@@ -1588,9 +1588,24 @@ public final class MJRoomMessage {
      */
     int getResult();
 
-    // required uint32 roomId = 2;
+    // optional string failReason = 2;
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>optional string failReason = 2;</code>
+     */
+    boolean hasFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    java.lang.String getFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getFailReasonBytes();
+
+    // required uint32 roomId = 3;
+    /**
+     * <code>required uint32 roomId = 3;</code>
      *
      * <pre>
      *房间ID
@@ -1598,7 +1613,7 @@ public final class MJRoomMessage {
      */
     boolean hasRoomId();
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>required uint32 roomId = 3;</code>
      *
      * <pre>
      *房间ID
@@ -1672,13 +1687,18 @@ public final class MJRoomMessage {
               result_ = input.readInt32();
               break;
             }
-            case 16: {
+            case 18: {
               bitField0_ |= 0x00000002;
+              failReason_ = input.readBytes();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
               roomId_ = input.readUInt32();
               break;
             }
             case 32: {
-              bitField0_ |= 0x00000004;
+              bitField0_ |= 0x00000008;
               userAmount_ = input.readUInt32();
               break;
             }
@@ -1738,21 +1758,64 @@ public final class MJRoomMessage {
       return result_;
     }
 
-    // required uint32 roomId = 2;
-    public static final int ROOMID_FIELD_NUMBER = 2;
+    // optional string failReason = 2;
+    public static final int FAILREASON_FIELD_NUMBER = 2;
+    private java.lang.Object failReason_;
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public boolean hasFailReason() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public java.lang.String getFailReason() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          failReason_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFailReasonBytes() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        failReason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required uint32 roomId = 3;
+    public static final int ROOMID_FIELD_NUMBER = 3;
     private int roomId_;
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>required uint32 roomId = 3;</code>
      *
      * <pre>
      *房间ID
      * </pre>
      */
     public boolean hasRoomId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>required uint32 roomId = 3;</code>
      *
      * <pre>
      *房间ID
@@ -1769,7 +1832,7 @@ public final class MJRoomMessage {
      * <code>optional uint32 userAmount = 4;</code>
      */
     public boolean hasUserAmount() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
      * <code>optional uint32 userAmount = 4;</code>
@@ -1780,6 +1843,7 @@ public final class MJRoomMessage {
 
     private void initFields() {
       result_ = 0;
+      failReason_ = "";
       roomId_ = 0;
       userAmount_ = 0;
     }
@@ -1807,9 +1871,12 @@ public final class MJRoomMessage {
         output.writeInt32(1, result_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeUInt32(2, roomId_);
+        output.writeBytes(2, getFailReasonBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeUInt32(3, roomId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeUInt32(4, userAmount_);
       }
       getUnknownFields().writeTo(output);
@@ -1827,9 +1894,13 @@ public final class MJRoomMessage {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(2, roomId_);
+          .computeBytesSize(2, getFailReasonBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, roomId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(4, userAmount_);
       }
@@ -1951,10 +2022,12 @@ public final class MJRoomMessage {
         super.clear();
         result_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        roomId_ = 0;
+        failReason_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        userAmount_ = 0;
+        roomId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        userAmount_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -1990,9 +2063,13 @@ public final class MJRoomMessage {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.roomId_ = roomId_;
+        result.failReason_ = failReason_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
+        }
+        result.roomId_ = roomId_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
         }
         result.userAmount_ = userAmount_;
         result.bitField0_ = to_bitField0_;
@@ -2013,6 +2090,11 @@ public final class MJRoomMessage {
         if (other == com.ourgame.mahjong.message.MJRoomMessage.SAckEnterRoom.getDefaultInstance()) return this;
         if (other.hasResult()) {
           setResult(other.getResult());
+        }
+        if (other.hasFailReason()) {
+          bitField0_ |= 0x00000002;
+          failReason_ = other.failReason_;
+          onChanged();
         }
         if (other.hasRoomId()) {
           setRoomId(other.getRoomId());
@@ -2088,20 +2170,94 @@ public final class MJRoomMessage {
         return this;
       }
 
-      // required uint32 roomId = 2;
+      // optional string failReason = 2;
+      private java.lang.Object failReason_ = "";
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public boolean hasFailReason() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public java.lang.String getFailReason() {
+        java.lang.Object ref = failReason_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          failReason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFailReasonBytes() {
+        java.lang.Object ref = failReason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          failReason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReason(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder clearFailReason() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        failReason_ = getDefaultInstance().getFailReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required uint32 roomId = 3;
       private int roomId_ ;
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>required uint32 roomId = 3;</code>
        *
        * <pre>
        *房间ID
        * </pre>
        */
       public boolean hasRoomId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>required uint32 roomId = 3;</code>
        *
        * <pre>
        *房间ID
@@ -2111,27 +2267,27 @@ public final class MJRoomMessage {
         return roomId_;
       }
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>required uint32 roomId = 3;</code>
        *
        * <pre>
        *房间ID
        * </pre>
        */
       public Builder setRoomId(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         roomId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>required uint32 roomId = 3;</code>
        *
        * <pre>
        *房间ID
        * </pre>
        */
       public Builder clearRoomId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         roomId_ = 0;
         onChanged();
         return this;
@@ -2143,7 +2299,7 @@ public final class MJRoomMessage {
        * <code>optional uint32 userAmount = 4;</code>
        */
       public boolean hasUserAmount() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
        * <code>optional uint32 userAmount = 4;</code>
@@ -2155,7 +2311,7 @@ public final class MJRoomMessage {
        * <code>optional uint32 userAmount = 4;</code>
        */
       public Builder setUserAmount(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         userAmount_ = value;
         onChanged();
         return this;
@@ -2164,7 +2320,7 @@ public final class MJRoomMessage {
        * <code>optional uint32 userAmount = 4;</code>
        */
       public Builder clearUserAmount() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         userAmount_ = 0;
         onChanged();
         return this;
@@ -2600,27 +2756,27 @@ public final class MJRoomMessage {
   public interface SAckLeaveRoomOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required int32 result = 2;
+    // required int32 result = 1;
     /**
-     * <code>required int32 result = 2;</code>
+     * <code>required int32 result = 1;</code>
      */
     boolean hasResult();
     /**
-     * <code>required int32 result = 2;</code>
+     * <code>required int32 result = 1;</code>
      */
     int getResult();
 
-    // optional string failReason = 3;
+    // optional string failReason = 2;
     /**
-     * <code>optional string failReason = 3;</code>
+     * <code>optional string failReason = 2;</code>
      */
     boolean hasFailReason();
     /**
-     * <code>optional string failReason = 3;</code>
+     * <code>optional string failReason = 2;</code>
      */
     java.lang.String getFailReason();
     /**
-     * <code>optional string failReason = 3;</code>
+     * <code>optional string failReason = 2;</code>
      */
     com.google.protobuf.ByteString
         getFailReasonBytes();
@@ -2676,12 +2832,12 @@ public final class MJRoomMessage {
               }
               break;
             }
-            case 16: {
+            case 8: {
               bitField0_ |= 0x00000001;
               result_ = input.readInt32();
               break;
             }
-            case 26: {
+            case 18: {
               bitField0_ |= 0x00000002;
               failReason_ = input.readBytes();
               break;
@@ -2726,33 +2882,33 @@ public final class MJRoomMessage {
     }
 
     private int bitField0_;
-    // required int32 result = 2;
-    public static final int RESULT_FIELD_NUMBER = 2;
+    // required int32 result = 1;
+    public static final int RESULT_FIELD_NUMBER = 1;
     private int result_;
     /**
-     * <code>required int32 result = 2;</code>
+     * <code>required int32 result = 1;</code>
      */
     public boolean hasResult() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int32 result = 2;</code>
+     * <code>required int32 result = 1;</code>
      */
     public int getResult() {
       return result_;
     }
 
-    // optional string failReason = 3;
-    public static final int FAILREASON_FIELD_NUMBER = 3;
+    // optional string failReason = 2;
+    public static final int FAILREASON_FIELD_NUMBER = 2;
     private java.lang.Object failReason_;
     /**
-     * <code>optional string failReason = 3;</code>
+     * <code>optional string failReason = 2;</code>
      */
     public boolean hasFailReason() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional string failReason = 3;</code>
+     * <code>optional string failReason = 2;</code>
      */
     public java.lang.String getFailReason() {
       java.lang.Object ref = failReason_;
@@ -2769,7 +2925,7 @@ public final class MJRoomMessage {
       }
     }
     /**
-     * <code>optional string failReason = 3;</code>
+     * <code>optional string failReason = 2;</code>
      */
     public com.google.protobuf.ByteString
         getFailReasonBytes() {
@@ -2806,10 +2962,10 @@ public final class MJRoomMessage {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(2, result_);
+        output.writeInt32(1, result_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(3, getFailReasonBytes());
+        output.writeBytes(2, getFailReasonBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -2822,11 +2978,11 @@ public final class MJRoomMessage {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, result_);
+          .computeInt32Size(1, result_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getFailReasonBytes());
+          .computeBytesSize(2, getFailReasonBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3039,22 +3195,22 @@ public final class MJRoomMessage {
       }
       private int bitField0_;
 
-      // required int32 result = 2;
+      // required int32 result = 1;
       private int result_ ;
       /**
-       * <code>required int32 result = 2;</code>
+       * <code>required int32 result = 1;</code>
        */
       public boolean hasResult() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int32 result = 2;</code>
+       * <code>required int32 result = 1;</code>
        */
       public int getResult() {
         return result_;
       }
       /**
-       * <code>required int32 result = 2;</code>
+       * <code>required int32 result = 1;</code>
        */
       public Builder setResult(int value) {
         bitField0_ |= 0x00000001;
@@ -3063,7 +3219,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>required int32 result = 2;</code>
+       * <code>required int32 result = 1;</code>
        */
       public Builder clearResult() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -3072,16 +3228,16 @@ public final class MJRoomMessage {
         return this;
       }
 
-      // optional string failReason = 3;
+      // optional string failReason = 2;
       private java.lang.Object failReason_ = "";
       /**
-       * <code>optional string failReason = 3;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public boolean hasFailReason() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional string failReason = 3;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public java.lang.String getFailReason() {
         java.lang.Object ref = failReason_;
@@ -3095,7 +3251,7 @@ public final class MJRoomMessage {
         }
       }
       /**
-       * <code>optional string failReason = 3;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public com.google.protobuf.ByteString
           getFailReasonBytes() {
@@ -3111,7 +3267,7 @@ public final class MJRoomMessage {
         }
       }
       /**
-       * <code>optional string failReason = 3;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public Builder setFailReason(
           java.lang.String value) {
@@ -3124,7 +3280,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>optional string failReason = 3;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public Builder clearFailReason() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -3133,7 +3289,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>optional string failReason = 3;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public Builder setFailReasonBytes(
           com.google.protobuf.ByteString value) {
@@ -4933,47 +5089,62 @@ public final class MJRoomMessage {
      */
     int getResult();
 
-    // required uint32 roomId = 2;
+    // optional string failReason = 2;
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>optional string failReason = 2;</code>
+     */
+    boolean hasFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    java.lang.String getFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getFailReasonBytes();
+
+    // required uint32 roomId = 3;
+    /**
+     * <code>required uint32 roomId = 3;</code>
      */
     boolean hasRoomId();
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>required uint32 roomId = 3;</code>
      */
     int getRoomId();
 
-    // required uint32 tableId = 3;
+    // required uint32 tableId = 4;
     /**
-     * <code>required uint32 tableId = 3;</code>
+     * <code>required uint32 tableId = 4;</code>
      */
     boolean hasTableId();
     /**
-     * <code>required uint32 tableId = 3;</code>
+     * <code>required uint32 tableId = 4;</code>
      */
     int getTableId();
 
-    // repeated .com.ourgame.mahjong.message.TablePlayer player = 4;
+    // repeated .com.ourgame.mahjong.message.TablePlayer player = 5;
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     java.util.List<com.ourgame.mahjong.message.MJCommonMessage.TablePlayer> 
         getPlayerList();
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     com.ourgame.mahjong.message.MJCommonMessage.TablePlayer getPlayer(int index);
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     int getPlayerCount();
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     java.util.List<? extends com.ourgame.mahjong.message.MJCommonMessage.TablePlayerOrBuilder> 
         getPlayerOrBuilderList();
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     com.ourgame.mahjong.message.MJCommonMessage.TablePlayerOrBuilder getPlayerOrBuilder(
         int index);
@@ -5034,20 +5205,25 @@ public final class MJRoomMessage {
               result_ = input.readUInt32();
               break;
             }
-            case 16: {
+            case 18: {
               bitField0_ |= 0x00000002;
-              roomId_ = input.readUInt32();
+              failReason_ = input.readBytes();
               break;
             }
             case 24: {
               bitField0_ |= 0x00000004;
+              roomId_ = input.readUInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
               tableId_ = input.readUInt32();
               break;
             }
-            case 34: {
-              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
                 player_ = new java.util.ArrayList<com.ourgame.mahjong.message.MJCommonMessage.TablePlayer>();
-                mutable_bitField0_ |= 0x00000008;
+                mutable_bitField0_ |= 0x00000010;
               }
               player_.add(input.readMessage(com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.PARSER, extensionRegistry));
               break;
@@ -5060,7 +5236,7 @@ public final class MJRoomMessage {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
           player_ = java.util.Collections.unmodifiableList(player_);
         }
         this.unknownFields = unknownFields.build();
@@ -5111,68 +5287,111 @@ public final class MJRoomMessage {
       return result_;
     }
 
-    // required uint32 roomId = 2;
-    public static final int ROOMID_FIELD_NUMBER = 2;
-    private int roomId_;
+    // optional string failReason = 2;
+    public static final int FAILREASON_FIELD_NUMBER = 2;
+    private java.lang.Object failReason_;
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>optional string failReason = 2;</code>
      */
-    public boolean hasRoomId() {
+    public boolean hasFailReason() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>optional string failReason = 2;</code>
+     */
+    public java.lang.String getFailReason() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          failReason_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFailReasonBytes() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        failReason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required uint32 roomId = 3;
+    public static final int ROOMID_FIELD_NUMBER = 3;
+    private int roomId_;
+    /**
+     * <code>required uint32 roomId = 3;</code>
+     */
+    public boolean hasRoomId() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required uint32 roomId = 3;</code>
      */
     public int getRoomId() {
       return roomId_;
     }
 
-    // required uint32 tableId = 3;
-    public static final int TABLEID_FIELD_NUMBER = 3;
+    // required uint32 tableId = 4;
+    public static final int TABLEID_FIELD_NUMBER = 4;
     private int tableId_;
     /**
-     * <code>required uint32 tableId = 3;</code>
+     * <code>required uint32 tableId = 4;</code>
      */
     public boolean hasTableId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required uint32 tableId = 3;</code>
+     * <code>required uint32 tableId = 4;</code>
      */
     public int getTableId() {
       return tableId_;
     }
 
-    // repeated .com.ourgame.mahjong.message.TablePlayer player = 4;
-    public static final int PLAYER_FIELD_NUMBER = 4;
+    // repeated .com.ourgame.mahjong.message.TablePlayer player = 5;
+    public static final int PLAYER_FIELD_NUMBER = 5;
     private java.util.List<com.ourgame.mahjong.message.MJCommonMessage.TablePlayer> player_;
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     public java.util.List<com.ourgame.mahjong.message.MJCommonMessage.TablePlayer> getPlayerList() {
       return player_;
     }
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     public java.util.List<? extends com.ourgame.mahjong.message.MJCommonMessage.TablePlayerOrBuilder> 
         getPlayerOrBuilderList() {
       return player_;
     }
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     public int getPlayerCount() {
       return player_.size();
     }
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     public com.ourgame.mahjong.message.MJCommonMessage.TablePlayer getPlayer(int index) {
       return player_.get(index);
     }
     /**
-     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+     * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
      */
     public com.ourgame.mahjong.message.MJCommonMessage.TablePlayerOrBuilder getPlayerOrBuilder(
         int index) {
@@ -5181,6 +5400,7 @@ public final class MJRoomMessage {
 
     private void initFields() {
       result_ = 0;
+      failReason_ = "";
       roomId_ = 0;
       tableId_ = 0;
       player_ = java.util.Collections.emptyList();
@@ -5219,13 +5439,16 @@ public final class MJRoomMessage {
         output.writeUInt32(1, result_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeUInt32(2, roomId_);
+        output.writeBytes(2, getFailReasonBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeUInt32(3, tableId_);
+        output.writeUInt32(3, roomId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeUInt32(4, tableId_);
       }
       for (int i = 0; i < player_.size(); i++) {
-        output.writeMessage(4, player_.get(i));
+        output.writeMessage(5, player_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -5242,15 +5465,19 @@ public final class MJRoomMessage {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(2, roomId_);
+          .computeBytesSize(2, getFailReasonBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(3, tableId_);
+          .computeUInt32Size(3, roomId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, tableId_);
       }
       for (int i = 0; i < player_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, player_.get(i));
+          .computeMessageSize(5, player_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5371,13 +5598,15 @@ public final class MJRoomMessage {
         super.clear();
         result_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        roomId_ = 0;
+        failReason_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        tableId_ = 0;
+        roomId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        tableId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
         if (playerBuilder_ == null) {
           player_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000010);
         } else {
           playerBuilder_.clear();
         }
@@ -5416,15 +5645,19 @@ public final class MJRoomMessage {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.roomId_ = roomId_;
+        result.failReason_ = failReason_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
+        result.roomId_ = roomId_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
         result.tableId_ = tableId_;
         if (playerBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
             player_ = java.util.Collections.unmodifiableList(player_);
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000010);
           }
           result.player_ = player_;
         } else {
@@ -5449,6 +5682,11 @@ public final class MJRoomMessage {
         if (other.hasResult()) {
           setResult(other.getResult());
         }
+        if (other.hasFailReason()) {
+          bitField0_ |= 0x00000002;
+          failReason_ = other.failReason_;
+          onChanged();
+        }
         if (other.hasRoomId()) {
           setRoomId(other.getRoomId());
         }
@@ -5459,7 +5697,7 @@ public final class MJRoomMessage {
           if (!other.player_.isEmpty()) {
             if (player_.isEmpty()) {
               player_ = other.player_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000010);
             } else {
               ensurePlayerIsMutable();
               player_.addAll(other.player_);
@@ -5472,7 +5710,7 @@ public final class MJRoomMessage {
               playerBuilder_.dispose();
               playerBuilder_ = null;
               player_ = other.player_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000010);
               playerBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getPlayerFieldBuilder() : null;
@@ -5559,79 +5797,153 @@ public final class MJRoomMessage {
         return this;
       }
 
-      // required uint32 roomId = 2;
-      private int roomId_ ;
+      // optional string failReason = 2;
+      private java.lang.Object failReason_ = "";
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>optional string failReason = 2;</code>
        */
-      public boolean hasRoomId() {
+      public boolean hasFailReason() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>optional string failReason = 2;</code>
+       */
+      public java.lang.String getFailReason() {
+        java.lang.Object ref = failReason_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          failReason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFailReasonBytes() {
+        java.lang.Object ref = failReason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          failReason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReason(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder clearFailReason() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        failReason_ = getDefaultInstance().getFailReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required uint32 roomId = 3;
+      private int roomId_ ;
+      /**
+       * <code>required uint32 roomId = 3;</code>
+       */
+      public boolean hasRoomId() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required uint32 roomId = 3;</code>
        */
       public int getRoomId() {
         return roomId_;
       }
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>required uint32 roomId = 3;</code>
        */
       public Builder setRoomId(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         roomId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>required uint32 roomId = 3;</code>
        */
       public Builder clearRoomId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         roomId_ = 0;
         onChanged();
         return this;
       }
 
-      // required uint32 tableId = 3;
+      // required uint32 tableId = 4;
       private int tableId_ ;
       /**
-       * <code>required uint32 tableId = 3;</code>
+       * <code>required uint32 tableId = 4;</code>
        */
       public boolean hasTableId() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required uint32 tableId = 3;</code>
+       * <code>required uint32 tableId = 4;</code>
        */
       public int getTableId() {
         return tableId_;
       }
       /**
-       * <code>required uint32 tableId = 3;</code>
+       * <code>required uint32 tableId = 4;</code>
        */
       public Builder setTableId(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         tableId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required uint32 tableId = 3;</code>
+       * <code>required uint32 tableId = 4;</code>
        */
       public Builder clearTableId() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         tableId_ = 0;
         onChanged();
         return this;
       }
 
-      // repeated .com.ourgame.mahjong.message.TablePlayer player = 4;
+      // repeated .com.ourgame.mahjong.message.TablePlayer player = 5;
       private java.util.List<com.ourgame.mahjong.message.MJCommonMessage.TablePlayer> player_ =
         java.util.Collections.emptyList();
       private void ensurePlayerIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
           player_ = new java.util.ArrayList<com.ourgame.mahjong.message.MJCommonMessage.TablePlayer>(player_);
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000010;
          }
       }
 
@@ -5639,7 +5951,7 @@ public final class MJRoomMessage {
           com.ourgame.mahjong.message.MJCommonMessage.TablePlayer, com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.Builder, com.ourgame.mahjong.message.MJCommonMessage.TablePlayerOrBuilder> playerBuilder_;
 
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public java.util.List<com.ourgame.mahjong.message.MJCommonMessage.TablePlayer> getPlayerList() {
         if (playerBuilder_ == null) {
@@ -5649,7 +5961,7 @@ public final class MJRoomMessage {
         }
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public int getPlayerCount() {
         if (playerBuilder_ == null) {
@@ -5659,7 +5971,7 @@ public final class MJRoomMessage {
         }
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public com.ourgame.mahjong.message.MJCommonMessage.TablePlayer getPlayer(int index) {
         if (playerBuilder_ == null) {
@@ -5669,7 +5981,7 @@ public final class MJRoomMessage {
         }
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public Builder setPlayer(
           int index, com.ourgame.mahjong.message.MJCommonMessage.TablePlayer value) {
@@ -5686,7 +5998,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public Builder setPlayer(
           int index, com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.Builder builderForValue) {
@@ -5700,7 +6012,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public Builder addPlayer(com.ourgame.mahjong.message.MJCommonMessage.TablePlayer value) {
         if (playerBuilder_ == null) {
@@ -5716,7 +6028,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public Builder addPlayer(
           int index, com.ourgame.mahjong.message.MJCommonMessage.TablePlayer value) {
@@ -5733,7 +6045,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public Builder addPlayer(
           com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.Builder builderForValue) {
@@ -5747,7 +6059,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public Builder addPlayer(
           int index, com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.Builder builderForValue) {
@@ -5761,7 +6073,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public Builder addAllPlayer(
           java.lang.Iterable<? extends com.ourgame.mahjong.message.MJCommonMessage.TablePlayer> values) {
@@ -5775,12 +6087,12 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public Builder clearPlayer() {
         if (playerBuilder_ == null) {
           player_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000010);
           onChanged();
         } else {
           playerBuilder_.clear();
@@ -5788,7 +6100,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public Builder removePlayer(int index) {
         if (playerBuilder_ == null) {
@@ -5801,14 +6113,14 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.Builder getPlayerBuilder(
           int index) {
         return getPlayerFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public com.ourgame.mahjong.message.MJCommonMessage.TablePlayerOrBuilder getPlayerOrBuilder(
           int index) {
@@ -5818,7 +6130,7 @@ public final class MJRoomMessage {
         }
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public java.util.List<? extends com.ourgame.mahjong.message.MJCommonMessage.TablePlayerOrBuilder> 
            getPlayerOrBuilderList() {
@@ -5829,14 +6141,14 @@ public final class MJRoomMessage {
         }
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.Builder addPlayerBuilder() {
         return getPlayerFieldBuilder().addBuilder(
             com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.getDefaultInstance());
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.Builder addPlayerBuilder(
           int index) {
@@ -5844,7 +6156,7 @@ public final class MJRoomMessage {
             index, com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.getDefaultInstance());
       }
       /**
-       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 4;</code>
+       * <code>repeated .com.ourgame.mahjong.message.TablePlayer player = 5;</code>
        */
       public java.util.List<com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.Builder> 
            getPlayerBuilderList() {
@@ -5857,7 +6169,7 @@ public final class MJRoomMessage {
           playerBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.ourgame.mahjong.message.MJCommonMessage.TablePlayer, com.ourgame.mahjong.message.MJCommonMessage.TablePlayer.Builder, com.ourgame.mahjong.message.MJCommonMessage.TablePlayerOrBuilder>(
                   player_,
-                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  ((bitField0_ & 0x00000010) == 0x00000010),
                   getParentForChildren(),
                   isClean());
           player_ = null;
@@ -6384,27 +6696,27 @@ public final class MJRoomMessage {
   public interface SAckLeaveTableOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required int32 result = 3;
+    // required int32 result = 1;
     /**
-     * <code>required int32 result = 3;</code>
+     * <code>required int32 result = 1;</code>
      */
     boolean hasResult();
     /**
-     * <code>required int32 result = 3;</code>
+     * <code>required int32 result = 1;</code>
      */
     int getResult();
 
-    // optional string failReason = 4;
+    // optional string failReason = 2;
     /**
-     * <code>optional string failReason = 4;</code>
+     * <code>optional string failReason = 2;</code>
      */
     boolean hasFailReason();
     /**
-     * <code>optional string failReason = 4;</code>
+     * <code>optional string failReason = 2;</code>
      */
     java.lang.String getFailReason();
     /**
-     * <code>optional string failReason = 4;</code>
+     * <code>optional string failReason = 2;</code>
      */
     com.google.protobuf.ByteString
         getFailReasonBytes();
@@ -6460,12 +6772,12 @@ public final class MJRoomMessage {
               }
               break;
             }
-            case 24: {
+            case 8: {
               bitField0_ |= 0x00000001;
               result_ = input.readInt32();
               break;
             }
-            case 34: {
+            case 18: {
               bitField0_ |= 0x00000002;
               failReason_ = input.readBytes();
               break;
@@ -6510,33 +6822,33 @@ public final class MJRoomMessage {
     }
 
     private int bitField0_;
-    // required int32 result = 3;
-    public static final int RESULT_FIELD_NUMBER = 3;
+    // required int32 result = 1;
+    public static final int RESULT_FIELD_NUMBER = 1;
     private int result_;
     /**
-     * <code>required int32 result = 3;</code>
+     * <code>required int32 result = 1;</code>
      */
     public boolean hasResult() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int32 result = 3;</code>
+     * <code>required int32 result = 1;</code>
      */
     public int getResult() {
       return result_;
     }
 
-    // optional string failReason = 4;
-    public static final int FAILREASON_FIELD_NUMBER = 4;
+    // optional string failReason = 2;
+    public static final int FAILREASON_FIELD_NUMBER = 2;
     private java.lang.Object failReason_;
     /**
-     * <code>optional string failReason = 4;</code>
+     * <code>optional string failReason = 2;</code>
      */
     public boolean hasFailReason() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional string failReason = 4;</code>
+     * <code>optional string failReason = 2;</code>
      */
     public java.lang.String getFailReason() {
       java.lang.Object ref = failReason_;
@@ -6553,7 +6865,7 @@ public final class MJRoomMessage {
       }
     }
     /**
-     * <code>optional string failReason = 4;</code>
+     * <code>optional string failReason = 2;</code>
      */
     public com.google.protobuf.ByteString
         getFailReasonBytes() {
@@ -6590,10 +6902,10 @@ public final class MJRoomMessage {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(3, result_);
+        output.writeInt32(1, result_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(4, getFailReasonBytes());
+        output.writeBytes(2, getFailReasonBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -6606,11 +6918,11 @@ public final class MJRoomMessage {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, result_);
+          .computeInt32Size(1, result_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getFailReasonBytes());
+          .computeBytesSize(2, getFailReasonBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6823,22 +7135,22 @@ public final class MJRoomMessage {
       }
       private int bitField0_;
 
-      // required int32 result = 3;
+      // required int32 result = 1;
       private int result_ ;
       /**
-       * <code>required int32 result = 3;</code>
+       * <code>required int32 result = 1;</code>
        */
       public boolean hasResult() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int32 result = 3;</code>
+       * <code>required int32 result = 1;</code>
        */
       public int getResult() {
         return result_;
       }
       /**
-       * <code>required int32 result = 3;</code>
+       * <code>required int32 result = 1;</code>
        */
       public Builder setResult(int value) {
         bitField0_ |= 0x00000001;
@@ -6847,7 +7159,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>required int32 result = 3;</code>
+       * <code>required int32 result = 1;</code>
        */
       public Builder clearResult() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -6856,16 +7168,16 @@ public final class MJRoomMessage {
         return this;
       }
 
-      // optional string failReason = 4;
+      // optional string failReason = 2;
       private java.lang.Object failReason_ = "";
       /**
-       * <code>optional string failReason = 4;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public boolean hasFailReason() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional string failReason = 4;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public java.lang.String getFailReason() {
         java.lang.Object ref = failReason_;
@@ -6879,7 +7191,7 @@ public final class MJRoomMessage {
         }
       }
       /**
-       * <code>optional string failReason = 4;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public com.google.protobuf.ByteString
           getFailReasonBytes() {
@@ -6895,7 +7207,7 @@ public final class MJRoomMessage {
         }
       }
       /**
-       * <code>optional string failReason = 4;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public Builder setFailReason(
           java.lang.String value) {
@@ -6908,7 +7220,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>optional string failReason = 4;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public Builder clearFailReason() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -6917,7 +7229,7 @@ public final class MJRoomMessage {
         return this;
       }
       /**
-       * <code>optional string failReason = 4;</code>
+       * <code>optional string failReason = 2;</code>
        */
       public Builder setFailReasonBytes(
           com.google.protobuf.ByteString value) {
@@ -7274,6 +7586,21 @@ public final class MJRoomMessage {
      * <code>required uint32 result = 1;</code>
      */
     int getResult();
+
+    // optional string failReason = 2;
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    boolean hasFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    java.lang.String getFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getFailReasonBytes();
   }
   /**
    * Protobuf type {@code com.ourgame.mahjong.message.SAckStandBy}
@@ -7329,6 +7656,11 @@ public final class MJRoomMessage {
             case 8: {
               bitField0_ |= 0x00000001;
               result_ = input.readUInt32();
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              failReason_ = input.readBytes();
               break;
             }
           }
@@ -7387,8 +7719,52 @@ public final class MJRoomMessage {
       return result_;
     }
 
+    // optional string failReason = 2;
+    public static final int FAILREASON_FIELD_NUMBER = 2;
+    private java.lang.Object failReason_;
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public boolean hasFailReason() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public java.lang.String getFailReason() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          failReason_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFailReasonBytes() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        failReason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       result_ = 0;
+      failReason_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -7409,6 +7785,9 @@ public final class MJRoomMessage {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeUInt32(1, result_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getFailReasonBytes());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -7421,6 +7800,10 @@ public final class MJRoomMessage {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, result_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getFailReasonBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -7540,6 +7923,8 @@ public final class MJRoomMessage {
         super.clear();
         result_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
+        failReason_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -7572,6 +7957,10 @@ public final class MJRoomMessage {
           to_bitField0_ |= 0x00000001;
         }
         result.result_ = result_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.failReason_ = failReason_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -7590,6 +7979,11 @@ public final class MJRoomMessage {
         if (other == com.ourgame.mahjong.message.MJRoomMessage.SAckStandBy.getDefaultInstance()) return this;
         if (other.hasResult()) {
           setResult(other.getResult());
+        }
+        if (other.hasFailReason()) {
+          bitField0_ |= 0x00000002;
+          failReason_ = other.failReason_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -7651,6 +8045,80 @@ public final class MJRoomMessage {
       public Builder clearResult() {
         bitField0_ = (bitField0_ & ~0x00000001);
         result_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional string failReason = 2;
+      private java.lang.Object failReason_ = "";
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public boolean hasFailReason() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public java.lang.String getFailReason() {
+        java.lang.Object ref = failReason_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          failReason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFailReasonBytes() {
+        java.lang.Object ref = failReason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          failReason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReason(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder clearFailReason() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        failReason_ = getDefaultInstance().getFailReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
         onChanged();
         return this;
       }
@@ -14268,41 +14736,43 @@ public final class MJRoomMessage {
       "ng.message\032\025MJCommonMessage.proto\"\016\n\014CRe" +
       "qRoomList\"@\n\014SAckRoomList\0220\n\005rooms\030\001 \003(\013" +
       "2!.com.ourgame.mahjong.message.Room\"\037\n\rC" +
-      "ReqEnterRoom\022\016\n\006roomId\030\001 \002(\r\"C\n\rSAckEnte" +
-      "rRoom\022\016\n\006result\030\001 \002(\005\022\016\n\006roomId\030\002 \002(\r\022\022\n" +
-      "\nuserAmount\030\004 \001(\r\"\037\n\rCReqLeaveRoom\022\016\n\006ro" +
-      "omId\030\001 \002(\r\"3\n\rSAckLeaveRoom\022\016\n\006result\030\002 " +
-      "\002(\005\022\022\n\nfailReason\030\003 \001(\t\"\034\n\nCReqTables\022\016\n" +
-      "\006roomId\030\001 \002(\r\"P\n\nSAckTables\022\016\n\006roomId\030\001 ",
-      "\002(\r\0222\n\006tables\030\002 \003(\0132\".com.ourgame.mahjon" +
-      "g.message.Table\"1\n\016CReqEnterTable\022\016\n\006roo" +
-      "mId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\"{\n\016SAckEnterT" +
-      "able\022\016\n\006result\030\001 \002(\r\022\016\n\006roomId\030\002 \002(\r\022\017\n\007" +
-      "tableId\030\003 \002(\r\0228\n\006player\030\004 \003(\0132(.com.ourg" +
-      "ame.mahjong.message.TablePlayer\"1\n\016CReqL" +
-      "eaveTable\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002" +
-      "(\r\"4\n\016SAckLeaveTable\022\016\n\006result\030\003 \002(\005\022\022\n\n" +
-      "failReason\030\004 \001(\t\"\r\n\013CReqStandBy\"\035\n\013SAckS" +
-      "tandBy\022\016\n\006result\030\001 \002(\r\"N\n\025NtfTablePlayer",
-      "Changed\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r" +
-      "\022\024\n\014playerAmount\030\003 \002(\r\"D\n\021NtfTableDismis" +
-      "sed\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\022\016\n\006" +
-      "reason\030\003 \001(\r\"P\n\013NtfNewTable\022\016\n\006roomId\030\001 " +
-      "\002(\r\0221\n\005table\030\002 \002(\0132\".com.ourgame.mahjong" +
-      ".message.Table\"%\n\022CReqQuickStartGame\022\017\n\007" +
-      "roomIds\030\001 \003(\r\"C\n\022SAckQuickStartGame\022\016\n\006r" +
-      "oomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\022\014\n\004seat\030\003 \001" +
-      "(\021\"\'\n\024CReqRoomPlayerAmount\022\017\n\007roomIds\030\001 " +
-      "\003(\r\"\257\001\n\024SAckRoomPlayerAmount\022]\n\021roomPlay",
-      "erAmounts\030\001 \003(\0132B.com.ourgame.mahjong.me" +
-      "ssage.SAckRoomPlayerAmount.RoomPlayerAmo" +
-      "unt\0328\n\020RoomPlayerAmount\022\016\n\006roomId\030\001 \002(\r\022" +
-      "\024\n\014playerAmount\030\002 \002(\r\"0\n\rCReqScanTable\022\016" +
-      "\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\"j\n\rSAckS" +
-      "canTable\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(" +
-      "\r\0228\n\006player\030\003 \003(\0132(.com.ourgame.mahjong." +
-      "message.TablePlayer\"1\n\016NtfInviteTable\022\016\n" +
-      "\006roomId\030\001 \001(\r\022\017\n\007tableId\030\002 \001(\r"
+      "ReqEnterRoom\022\016\n\006roomId\030\001 \002(\r\"W\n\rSAckEnte" +
+      "rRoom\022\016\n\006result\030\001 \002(\005\022\022\n\nfailReason\030\002 \001(" +
+      "\t\022\016\n\006roomId\030\003 \002(\r\022\022\n\nuserAmount\030\004 \001(\r\"\037\n" +
+      "\rCReqLeaveRoom\022\016\n\006roomId\030\001 \002(\r\"3\n\rSAckLe" +
+      "aveRoom\022\016\n\006result\030\001 \002(\005\022\022\n\nfailReason\030\002 " +
+      "\001(\t\"\034\n\nCReqTables\022\016\n\006roomId\030\001 \002(\r\"P\n\nSAc",
+      "kTables\022\016\n\006roomId\030\001 \002(\r\0222\n\006tables\030\002 \003(\0132" +
+      "\".com.ourgame.mahjong.message.Table\"1\n\016C" +
+      "ReqEnterTable\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId" +
+      "\030\002 \002(\r\"\217\001\n\016SAckEnterTable\022\016\n\006result\030\001 \002(" +
+      "\r\022\022\n\nfailReason\030\002 \001(\t\022\016\n\006roomId\030\003 \002(\r\022\017\n" +
+      "\007tableId\030\004 \002(\r\0228\n\006player\030\005 \003(\0132(.com.our" +
+      "game.mahjong.message.TablePlayer\"1\n\016CReq" +
+      "LeaveTable\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 " +
+      "\002(\r\"4\n\016SAckLeaveTable\022\016\n\006result\030\001 \002(\005\022\022\n" +
+      "\nfailReason\030\002 \001(\t\"\r\n\013CReqStandBy\"1\n\013SAck",
+      "StandBy\022\016\n\006result\030\001 \002(\r\022\022\n\nfailReason\030\002 " +
+      "\001(\t\"N\n\025NtfTablePlayerChanged\022\016\n\006roomId\030\001" +
+      " \002(\r\022\017\n\007tableId\030\002 \002(\r\022\024\n\014playerAmount\030\003 " +
+      "\002(\r\"D\n\021NtfTableDismissed\022\016\n\006roomId\030\001 \002(\r" +
+      "\022\017\n\007tableId\030\002 \002(\r\022\016\n\006reason\030\003 \001(\r\"P\n\013Ntf" +
+      "NewTable\022\016\n\006roomId\030\001 \002(\r\0221\n\005table\030\002 \002(\0132" +
+      "\".com.ourgame.mahjong.message.Table\"%\n\022C" +
+      "ReqQuickStartGame\022\017\n\007roomIds\030\001 \003(\r\"C\n\022SA" +
+      "ckQuickStartGame\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tabl" +
+      "eId\030\002 \002(\r\022\014\n\004seat\030\003 \001(\021\"\'\n\024CReqRoomPlaye",
+      "rAmount\022\017\n\007roomIds\030\001 \003(\r\"\257\001\n\024SAckRoomPla" +
+      "yerAmount\022]\n\021roomPlayerAmounts\030\001 \003(\0132B.c" +
+      "om.ourgame.mahjong.message.SAckRoomPlaye" +
+      "rAmount.RoomPlayerAmount\0328\n\020RoomPlayerAm" +
+      "ount\022\016\n\006roomId\030\001 \002(\r\022\024\n\014playerAmount\030\002 \002" +
+      "(\r\"0\n\rCReqScanTable\022\016\n\006roomId\030\001 \002(\r\022\017\n\007t" +
+      "ableId\030\002 \002(\r\"j\n\rSAckScanTable\022\016\n\006roomId\030" +
+      "\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\0228\n\006player\030\003 \003(\0132(" +
+      ".com.ourgame.mahjong.message.TablePlayer" +
+      "\"1\n\016NtfInviteTable\022\016\n\006roomId\030\001 \001(\r\022\017\n\007ta",
+      "bleId\030\002 \001(\r"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -14332,7 +14802,7 @@ public final class MJRoomMessage {
           internal_static_com_ourgame_mahjong_message_SAckEnterRoom_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_ourgame_mahjong_message_SAckEnterRoom_descriptor,
-              new java.lang.String[] { "Result", "RoomId", "UserAmount", });
+              new java.lang.String[] { "Result", "FailReason", "RoomId", "UserAmount", });
           internal_static_com_ourgame_mahjong_message_CReqLeaveRoom_descriptor =
             getDescriptor().getMessageTypes().get(4);
           internal_static_com_ourgame_mahjong_message_CReqLeaveRoom_fieldAccessorTable = new
@@ -14368,7 +14838,7 @@ public final class MJRoomMessage {
           internal_static_com_ourgame_mahjong_message_SAckEnterTable_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_ourgame_mahjong_message_SAckEnterTable_descriptor,
-              new java.lang.String[] { "Result", "RoomId", "TableId", "Player", });
+              new java.lang.String[] { "Result", "FailReason", "RoomId", "TableId", "Player", });
           internal_static_com_ourgame_mahjong_message_CReqLeaveTable_descriptor =
             getDescriptor().getMessageTypes().get(10);
           internal_static_com_ourgame_mahjong_message_CReqLeaveTable_fieldAccessorTable = new
@@ -14392,7 +14862,7 @@ public final class MJRoomMessage {
           internal_static_com_ourgame_mahjong_message_SAckStandBy_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_ourgame_mahjong_message_SAckStandBy_descriptor,
-              new java.lang.String[] { "Result", });
+              new java.lang.String[] { "Result", "FailReason", });
           internal_static_com_ourgame_mahjong_message_NtfTablePlayerChanged_descriptor =
             getDescriptor().getMessageTypes().get(14);
           internal_static_com_ourgame_mahjong_message_NtfTablePlayerChanged_fieldAccessorTable = new

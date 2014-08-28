@@ -113,7 +113,8 @@ message CReqGlobalChat{
 }
 message SAckGlobalChat{
 	optional uint32 result = 1;				//发送结果
-	optional uint32 price = 2;				//花费价格
+	optional string failReason = 2;
+	optional uint32 price = 3;				//花费价格
 }
 
 

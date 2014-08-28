@@ -7,9 +7,9 @@ package com.ourgame.mahjong.message.chat {
 	import flash.utils.IDataOutput;
 	import flash.utils.IExternalizable;
 	import flash.errors.IOError;
-	import com.ourgame.mahjong.message.chat.E_Pos_CoinType;
 	import flash.utils.ByteArray;
 	import com.ourgame.mahjong.message.chat.OGReqChatLogin.E_ClientType;
+	import com.ourgame.mahjong.message.chat.E_Pos_CoinType;
 	// @@protoc_insertion_point(imports)
 
 	// @@protoc_insertion_point(class_metadata)

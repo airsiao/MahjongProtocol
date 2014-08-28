@@ -736,33 +736,48 @@ public final class MJTableMessage {
      */
     int getResult();
 
-    // required uint32 roomId = 2;
+    // optional string failReason = 2;
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>optional string failReason = 2;</code>
+     */
+    boolean hasFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    java.lang.String getFailReason();
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getFailReasonBytes();
+
+    // required uint32 roomId = 3;
+    /**
+     * <code>required uint32 roomId = 3;</code>
      */
     boolean hasRoomId();
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>required uint32 roomId = 3;</code>
      */
     int getRoomId();
 
-    // required uint32 tableId = 3;
+    // required uint32 tableId = 4;
     /**
-     * <code>required uint32 tableId = 3;</code>
+     * <code>required uint32 tableId = 4;</code>
      */
     boolean hasTableId();
     /**
-     * <code>required uint32 tableId = 3;</code>
+     * <code>required uint32 tableId = 4;</code>
      */
     int getTableId();
 
-    // required sint32 seat = 4;
+    // required sint32 seat = 5;
     /**
-     * <code>required sint32 seat = 4;</code>
+     * <code>required sint32 seat = 5;</code>
      */
     boolean hasSeat();
     /**
-     * <code>required sint32 seat = 4;</code>
+     * <code>required sint32 seat = 5;</code>
      */
     int getSeat();
   }
@@ -822,18 +837,23 @@ public final class MJTableMessage {
               result_ = input.readUInt32();
               break;
             }
-            case 16: {
+            case 18: {
               bitField0_ |= 0x00000002;
-              roomId_ = input.readUInt32();
+              failReason_ = input.readBytes();
               break;
             }
             case 24: {
               bitField0_ |= 0x00000004;
-              tableId_ = input.readUInt32();
+              roomId_ = input.readUInt32();
               break;
             }
             case 32: {
               bitField0_ |= 0x00000008;
+              tableId_ = input.readUInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
               seat_ = input.readSInt32();
               break;
             }
@@ -901,49 +921,92 @@ public final class MJTableMessage {
       return result_;
     }
 
-    // required uint32 roomId = 2;
-    public static final int ROOMID_FIELD_NUMBER = 2;
-    private int roomId_;
+    // optional string failReason = 2;
+    public static final int FAILREASON_FIELD_NUMBER = 2;
+    private java.lang.Object failReason_;
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>optional string failReason = 2;</code>
      */
-    public boolean hasRoomId() {
+    public boolean hasFailReason() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required uint32 roomId = 2;</code>
+     * <code>optional string failReason = 2;</code>
+     */
+    public java.lang.String getFailReason() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          failReason_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string failReason = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFailReasonBytes() {
+      java.lang.Object ref = failReason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        failReason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required uint32 roomId = 3;
+    public static final int ROOMID_FIELD_NUMBER = 3;
+    private int roomId_;
+    /**
+     * <code>required uint32 roomId = 3;</code>
+     */
+    public boolean hasRoomId() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required uint32 roomId = 3;</code>
      */
     public int getRoomId() {
       return roomId_;
     }
 
-    // required uint32 tableId = 3;
-    public static final int TABLEID_FIELD_NUMBER = 3;
+    // required uint32 tableId = 4;
+    public static final int TABLEID_FIELD_NUMBER = 4;
     private int tableId_;
     /**
-     * <code>required uint32 tableId = 3;</code>
+     * <code>required uint32 tableId = 4;</code>
      */
     public boolean hasTableId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required uint32 tableId = 3;</code>
+     * <code>required uint32 tableId = 4;</code>
      */
     public int getTableId() {
       return tableId_;
     }
 
-    // required sint32 seat = 4;
-    public static final int SEAT_FIELD_NUMBER = 4;
+    // required sint32 seat = 5;
+    public static final int SEAT_FIELD_NUMBER = 5;
     private int seat_;
     /**
-     * <code>required sint32 seat = 4;</code>
+     * <code>required sint32 seat = 5;</code>
      */
     public boolean hasSeat() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>required sint32 seat = 4;</code>
+     * <code>required sint32 seat = 5;</code>
      */
     public int getSeat() {
       return seat_;
@@ -951,6 +1014,7 @@ public final class MJTableMessage {
 
     private void initFields() {
       result_ = 0;
+      failReason_ = "";
       roomId_ = 0;
       tableId_ = 0;
       seat_ = 0;
@@ -987,13 +1051,16 @@ public final class MJTableMessage {
         output.writeUInt32(1, result_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeUInt32(2, roomId_);
+        output.writeBytes(2, getFailReasonBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeUInt32(3, tableId_);
+        output.writeUInt32(3, roomId_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeSInt32(4, seat_);
+        output.writeUInt32(4, tableId_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeSInt32(5, seat_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1010,15 +1077,19 @@ public final class MJTableMessage {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(2, roomId_);
+          .computeBytesSize(2, getFailReasonBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(3, tableId_);
+          .computeUInt32Size(3, roomId_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeSInt32Size(4, seat_);
+          .computeUInt32Size(4, tableId_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeSInt32Size(5, seat_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1138,12 +1209,14 @@ public final class MJTableMessage {
         super.clear();
         result_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        roomId_ = 0;
+        failReason_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        tableId_ = 0;
+        roomId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        seat_ = 0;
+        tableId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
+        seat_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -1179,13 +1252,17 @@ public final class MJTableMessage {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.roomId_ = roomId_;
+        result.failReason_ = failReason_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.tableId_ = tableId_;
+        result.roomId_ = roomId_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
+        }
+        result.tableId_ = tableId_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
         }
         result.seat_ = seat_;
         result.bitField0_ = to_bitField0_;
@@ -1206,6 +1283,11 @@ public final class MJTableMessage {
         if (other == com.ourgame.mahjong.message.MJTableMessage.SAckSitDown.getDefaultInstance()) return this;
         if (other.hasResult()) {
           setResult(other.getResult());
+        }
+        if (other.hasFailReason()) {
+          bitField0_ |= 0x00000002;
+          failReason_ = other.failReason_;
+          onChanged();
         }
         if (other.hasRoomId()) {
           setRoomId(other.getRoomId());
@@ -1308,100 +1390,174 @@ public final class MJTableMessage {
         return this;
       }
 
-      // required uint32 roomId = 2;
-      private int roomId_ ;
+      // optional string failReason = 2;
+      private java.lang.Object failReason_ = "";
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>optional string failReason = 2;</code>
        */
-      public boolean hasRoomId() {
+      public boolean hasFailReason() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>optional string failReason = 2;</code>
+       */
+      public java.lang.String getFailReason() {
+        java.lang.Object ref = failReason_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          failReason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFailReasonBytes() {
+        java.lang.Object ref = failReason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          failReason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReason(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder clearFailReason() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        failReason_ = getDefaultInstance().getFailReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string failReason = 2;</code>
+       */
+      public Builder setFailReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        failReason_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required uint32 roomId = 3;
+      private int roomId_ ;
+      /**
+       * <code>required uint32 roomId = 3;</code>
+       */
+      public boolean hasRoomId() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required uint32 roomId = 3;</code>
        */
       public int getRoomId() {
         return roomId_;
       }
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>required uint32 roomId = 3;</code>
        */
       public Builder setRoomId(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         roomId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required uint32 roomId = 2;</code>
+       * <code>required uint32 roomId = 3;</code>
        */
       public Builder clearRoomId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         roomId_ = 0;
         onChanged();
         return this;
       }
 
-      // required uint32 tableId = 3;
+      // required uint32 tableId = 4;
       private int tableId_ ;
       /**
-       * <code>required uint32 tableId = 3;</code>
+       * <code>required uint32 tableId = 4;</code>
        */
       public boolean hasTableId() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required uint32 tableId = 3;</code>
+       * <code>required uint32 tableId = 4;</code>
        */
       public int getTableId() {
         return tableId_;
       }
       /**
-       * <code>required uint32 tableId = 3;</code>
+       * <code>required uint32 tableId = 4;</code>
        */
       public Builder setTableId(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         tableId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required uint32 tableId = 3;</code>
+       * <code>required uint32 tableId = 4;</code>
        */
       public Builder clearTableId() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         tableId_ = 0;
         onChanged();
         return this;
       }
 
-      // required sint32 seat = 4;
+      // required sint32 seat = 5;
       private int seat_ ;
       /**
-       * <code>required sint32 seat = 4;</code>
+       * <code>required sint32 seat = 5;</code>
        */
       public boolean hasSeat() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>required sint32 seat = 4;</code>
+       * <code>required sint32 seat = 5;</code>
        */
       public int getSeat() {
         return seat_;
       }
       /**
-       * <code>required sint32 seat = 4;</code>
+       * <code>required sint32 seat = 5;</code>
        */
       public Builder setSeat(int value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         seat_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required sint32 seat = 4;</code>
+       * <code>required sint32 seat = 5;</code>
        */
       public Builder clearSeat() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         seat_ = 0;
         onChanged();
         return this;
@@ -12919,41 +13075,41 @@ public final class MJTableMessage {
       "\n\024MJTableMessage.proto\022\033com.ourgame.mahj" +
       "ong.message\032\025MJCommonMessage.proto\"J\n\013CR" +
       "eqSitDown\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002" +
-      "(\r\022\014\n\004seat\030\003 \002(\021\022\014\n\004obey\030\004 \001(\010\"L\n\013SAckSi" +
-      "tDown\022\016\n\006result\030\001 \002(\r\022\016\n\006roomId\030\002 \002(\r\022\017\n" +
-      "\007tableId\030\003 \002(\r\022\014\n\004seat\030\004 \002(\021\".\n\013CReqStan" +
-      "dUp\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\"\\\n\013" +
-      "SAckStandUp\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002" +
-      " \002(\r\022\014\n\004seat\030\003 \002(\021\022\016\n\006result\030\004 \002(\r\022\016\n\006re" +
-      "ason\030\005 \002(\r\"Q\n\020NtfPlayerSitDown\022\016\n\006roomId",
-      "\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\022\016\n\006userId\030\003 \002(\004\022" +
-      "\014\n\004seat\030\004 \002(\021\"A\n\020NtfPlayerStandUp\022\016\n\006roo" +
-      "mId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\022\014\n\004seat\030\003 \002(\021" +
-      "\"p\n\023NtfPlayerEnterTable\022\016\n\006roomId\030\001 \002(\r\022" +
-      "\017\n\007tableId\030\002 \002(\r\0228\n\006player\030\003 \002(\0132(.com.o" +
-      "urgame.mahjong.message.TablePlayer\"F\n\023Nt" +
-      "fPlayerLeaveTable\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tab" +
-      "leId\030\002 \002(\r\022\016\n\006userId\030\003 \002(\004\"d\n\rNtfInviteG" +
-      "ame\022\016\n\006gameId\030\001 \002(\004\022\020\n\010serverId\030\002 \002(\004\022\020\n" +
-      "\010gameType\030\003 \001(\r\022\016\n\006roomId\030\004 \001(\r\022\017\n\007table",
-      "Id\030\005 \001(\r\"d\n\rCReqTableChat\022\016\n\006roomId\030\001 \002(" +
-      "\r\022\017\n\007tableId\030\002 \002(\r\022\017\n\004type\030\003 \002(\r:\0010\022\017\n\007c" +
-      "ontent\030\004 \002(\t\022\020\n\010receiver\030\005 \001(\004\"q\n\rSAckTa" +
-      "bleChat\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r" +
-      "\022\014\n\004type\030\003 \002(\r\022\017\n\007content\030\004 \002(\t\022\016\n\006sende" +
-      "r\030\005 \002(\004\022\020\n\010receiver\030\006 \001(\004\"$\n\016CReqAutoRef" +
-      "ill\022\022\n\nautoRefill\030\001 \002(\r\"$\n\016SAckAutoRefil" +
-      "l\022\022\n\nautoRefill\030\001 \002(\r\"*\n\021CReqNextHandLea" +
-      "ve\022\025\n\rnextHandLeave\030\001 \002(\r\"*\n\021SAckNextHan" +
-      "dLeave\022\025\n\rnextHandLeave\030\001 \002(\r\"0\n\017NtfScor",
-      "eChanged\022\016\n\006userId\030\001 \002(\004\022\r\n\005score\030\002 \002(\r\"" +
-      "\025\n\023SReqNeedRefillScore\".\n\026CAckConfirmRef" +
-      "illScore\022\024\n\006refill\030\001 \002(\010:\004true\"o\n\014NtfGre" +
-      "atGame\022\014\n\004seat\030\001 \002(\r\022\016\n\006userId\030\002 \002(\004\022\r\n\005" +
-      "level\030\003 \002(\r\022\014\n\004star\030\004 \002(\r\022\020\n\010winScore\030\005 " +
-      "\001(\r\022\022\n\nservicePay\030\006 \001(\r\"\025\n\023CReqExpectGam" +
-      "eStart\"#\n\023SAckExpectGameStart\022\014\n\004time\030\001 " +
-      "\002(\r"
+      "(\r\022\014\n\004seat\030\003 \002(\021\022\014\n\004obey\030\004 \001(\010\"`\n\013SAckSi" +
+      "tDown\022\016\n\006result\030\001 \002(\r\022\022\n\nfailReason\030\002 \001(" +
+      "\t\022\016\n\006roomId\030\003 \002(\r\022\017\n\007tableId\030\004 \002(\r\022\014\n\004se" +
+      "at\030\005 \002(\021\".\n\013CReqStandUp\022\016\n\006roomId\030\001 \002(\r\022" +
+      "\017\n\007tableId\030\002 \002(\r\"\\\n\013SAckStandUp\022\016\n\006roomI" +
+      "d\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\022\014\n\004seat\030\003 \002(\021\022\016" +
+      "\n\006result\030\004 \002(\r\022\016\n\006reason\030\005 \002(\r\"Q\n\020NtfPla",
+      "yerSitDown\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 " +
+      "\002(\r\022\016\n\006userId\030\003 \002(\004\022\014\n\004seat\030\004 \002(\021\"A\n\020Ntf" +
+      "PlayerStandUp\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId" +
+      "\030\002 \002(\r\022\014\n\004seat\030\003 \002(\021\"p\n\023NtfPlayerEnterTa" +
+      "ble\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\0228\n\006" +
+      "player\030\003 \002(\0132(.com.ourgame.mahjong.messa" +
+      "ge.TablePlayer\"F\n\023NtfPlayerLeaveTable\022\016\n" +
+      "\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\022\016\n\006userId" +
+      "\030\003 \002(\004\"d\n\rNtfInviteGame\022\016\n\006gameId\030\001 \002(\004\022" +
+      "\020\n\010serverId\030\002 \002(\004\022\020\n\010gameType\030\003 \001(\r\022\016\n\006r",
+      "oomId\030\004 \001(\r\022\017\n\007tableId\030\005 \001(\r\"d\n\rCReqTabl" +
+      "eChat\022\016\n\006roomId\030\001 \002(\r\022\017\n\007tableId\030\002 \002(\r\022\017" +
+      "\n\004type\030\003 \002(\r:\0010\022\017\n\007content\030\004 \002(\t\022\020\n\010rece" +
+      "iver\030\005 \001(\004\"q\n\rSAckTableChat\022\016\n\006roomId\030\001 " +
+      "\002(\r\022\017\n\007tableId\030\002 \002(\r\022\014\n\004type\030\003 \002(\r\022\017\n\007co" +
+      "ntent\030\004 \002(\t\022\016\n\006sender\030\005 \002(\004\022\020\n\010receiver\030" +
+      "\006 \001(\004\"$\n\016CReqAutoRefill\022\022\n\nautoRefill\030\001 " +
+      "\002(\r\"$\n\016SAckAutoRefill\022\022\n\nautoRefill\030\001 \002(" +
+      "\r\"*\n\021CReqNextHandLeave\022\025\n\rnextHandLeave\030" +
+      "\001 \002(\r\"*\n\021SAckNextHandLeave\022\025\n\rnextHandLe",
+      "ave\030\001 \002(\r\"0\n\017NtfScoreChanged\022\016\n\006userId\030\001" +
+      " \002(\004\022\r\n\005score\030\002 \002(\r\"\025\n\023SReqNeedRefillSco" +
+      "re\".\n\026CAckConfirmRefillScore\022\024\n\006refill\030\001" +
+      " \002(\010:\004true\"o\n\014NtfGreatGame\022\014\n\004seat\030\001 \002(\r" +
+      "\022\016\n\006userId\030\002 \002(\004\022\r\n\005level\030\003 \002(\r\022\014\n\004star\030" +
+      "\004 \002(\r\022\020\n\010winScore\030\005 \001(\r\022\022\n\nservicePay\030\006 " +
+      "\001(\r\"\025\n\023CReqExpectGameStart\"#\n\023SAckExpect" +
+      "GameStart\022\014\n\004time\030\001 \002(\r"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -12971,7 +13127,7 @@ public final class MJTableMessage {
           internal_static_com_ourgame_mahjong_message_SAckSitDown_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_ourgame_mahjong_message_SAckSitDown_descriptor,
-              new java.lang.String[] { "Result", "RoomId", "TableId", "Seat", });
+              new java.lang.String[] { "Result", "FailReason", "RoomId", "TableId", "Seat", });
           internal_static_com_ourgame_mahjong_message_CReqStandUp_descriptor =
             getDescriptor().getMessageTypes().get(2);
           internal_static_com_ourgame_mahjong_message_CReqStandUp_fieldAccessorTable = new

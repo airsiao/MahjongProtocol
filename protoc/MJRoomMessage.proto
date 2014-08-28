@@ -30,7 +30,8 @@ message CReqEnterRoom{
 
 message SAckEnterRoom{
 	required int32 result = 1;
-	required uint32 roomId = 2;				//房间ID
+	optional string failReason = 2;
+	required uint32 roomId = 3;				//房间ID
 	optional uint32 userAmount = 4;
 }
 
@@ -42,8 +43,8 @@ message CReqLeaveRoom{
 }
 
 message SAckLeaveRoom{
-	required int32 result = 2;
-	optional string failReason = 3;
+	required int32 result = 1;
+	optional string failReason = 2;
 }
 
 //========================================================================================
@@ -68,9 +69,10 @@ message CReqEnterTable{
 
 message SAckEnterTable{
 	required uint32 result = 1;
-	required uint32 roomId = 2;
-	required uint32 tableId = 3;
-	repeated TablePlayer player = 4;
+	optional string failReason = 2;
+	required uint32 roomId = 3;
+	required uint32 tableId = 4;
+	repeated TablePlayer player = 5;
 }
 
 //========================================================================================
@@ -82,8 +84,8 @@ message CReqLeaveTable{
 }
 
 message SAckLeaveTable{
-	required int32 result = 3;
-	optional string failReason = 4;
+	required int32 result = 1;
+	optional string failReason = 2;
 }
 
 //========================================================================================
@@ -93,6 +95,7 @@ message CReqStandBy{
 }
 message SAckStandBy{
 	required uint32 result = 1;
+	optional string failReason = 2;
 }
 
 //========================================================================================

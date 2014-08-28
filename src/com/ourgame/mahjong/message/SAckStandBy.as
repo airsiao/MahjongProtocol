@@ -21,9 +21,36 @@ package com.ourgame.mahjong.message {
 		/**
 		 *  @private
 		 */
+		public static const FAILREASON:FieldDescriptor$TYPE_STRING = new FieldDescriptor$TYPE_STRING("com.ourgame.mahjong.message.SAckStandBy.failReason", "failReason", (2 << 3) | com.netease.protobuf.WireType.LENGTH_DELIMITED);
+
+		private var failReason$field:String;
+
+		public function clearFailReason():void {
+			failReason$field = null;
+		}
+
+		public function get hasFailReason():Boolean {
+			return failReason$field != null;
+		}
+
+		public function set failReason(value:String):void {
+			failReason$field = value;
+		}
+
+		public function get failReason():String {
+			return failReason$field;
+		}
+
+		/**
+		 *  @private
+		 */
 		override com.netease.protobuf.used_by_generated_code final function writeToBuffer(output:com.netease.protobuf.WritingBuffer):void {
 			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 1);
 			com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, this.result);
+			if (hasFailReason) {
+				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.LENGTH_DELIMITED, 2);
+				com.netease.protobuf.WriteUtils.write$TYPE_STRING(output, failReason$field);
+			}
 			for (var fieldKey:* in this) {
 				super.writeUnknown(output, fieldKey);
 			}
@@ -34,6 +61,7 @@ package com.ourgame.mahjong.message {
 		 */
 		override com.netease.protobuf.used_by_generated_code final function readFromSlice(input:flash.utils.IDataInput, bytesAfterSlice:uint):void {
 			var result$count:uint = 0;
+			var failReason$count:uint = 0;
 			while (input.bytesAvailable > bytesAfterSlice) {
 				var tag:uint = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
 				switch (tag >> 3) {
@@ -43,6 +71,13 @@ package com.ourgame.mahjong.message {
 					}
 					++result$count;
 					this.result = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
+					break;
+				case 2:
+					if (failReason$count != 0) {
+						throw new flash.errors.IOError('Bad data format: SAckStandBy.failReason cannot be set twice.');
+					}
+					++failReason$count;
+					this.failReason = com.netease.protobuf.ReadUtils.read$TYPE_STRING(input);
 					break;
 				default:
 					super.readUnknown(input, tag);
