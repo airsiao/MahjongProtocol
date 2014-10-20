@@ -166,7 +166,7 @@ message SAckScanTable{
 
 //========================================================================================
 // 邀请进入桌子
-// #define OGID_TABLE_INVITE				( OGID_ROOM_MESSAGE + 79 )
+// #define OGID_TABLE_INVITE				( OGID_ROOM_MESSAGE + 89 )
 message NtfInviteTable{
 	optional uint32 roomId = 1;
 	optional uint32 tableId = 2;

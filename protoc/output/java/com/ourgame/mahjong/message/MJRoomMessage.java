@@ -14138,7 +14138,7 @@ public final class MJRoomMessage {
    * <pre>
    *========================================================================================
    * 邀请进入桌子
-   * #define OGID_TABLE_INVITE				( OGID_ROOM_MESSAGE + 79 )
+   * #define OGID_TABLE_INVITE				( OGID_ROOM_MESSAGE + 89 )
    * </pre>
    */
   public static final class NtfInviteTable extends
@@ -14394,7 +14394,7 @@ public final class MJRoomMessage {
      * <pre>
      *========================================================================================
      * 邀请进入桌子
-     * #define OGID_TABLE_INVITE				( OGID_ROOM_MESSAGE + 79 )
+     * #define OGID_TABLE_INVITE				( OGID_ROOM_MESSAGE + 89 )
      * </pre>
      */
     public static final class Builder extends

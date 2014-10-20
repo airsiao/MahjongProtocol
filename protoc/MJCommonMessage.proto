@@ -45,6 +45,6 @@ message TablePlayer{
 	optional uint32 gender = 5;				//性别
 	optional string headImage = 6;			//头像连接
 	optional uint32 level = 7;				//等级
-	optional uint64 experience = 8;			//经验
+	optional uint32 experience = 8;			//经验
 	optional float  winRate = 9;			//胜率
 }

@@ -117,23 +117,25 @@ package com.ourgame.mahjong.message {
 		/**
 		 *  @private
 		 */
-		public static const EXPERIENCE:FieldDescriptor$TYPE_UINT64 = new FieldDescriptor$TYPE_UINT64("com.ourgame.mahjong.message.TablePlayer.experience", "experience", (8 << 3) | com.netease.protobuf.WireType.VARINT);
+		public static const EXPERIENCE:FieldDescriptor$TYPE_UINT32 = new FieldDescriptor$TYPE_UINT32("com.ourgame.mahjong.message.TablePlayer.experience", "experience", (8 << 3) | com.netease.protobuf.WireType.VARINT);
 
-		private var experience$field:UInt64;
+		private var experience$field:uint;
 
 		public function clearExperience():void {
-			experience$field = null;
+			hasField$0 &= 0xfffffffb;
+			experience$field = new uint();
 		}
 
 		public function get hasExperience():Boolean {
-			return experience$field != null;
+			return (hasField$0 & 0x4) != 0;
 		}
 
-		public function set experience(value:UInt64):void {
+		public function set experience(value:uint):void {
+			hasField$0 |= 0x4;
 			experience$field = value;
 		}
 
-		public function get experience():UInt64 {
+		public function get experience():uint {
 			return experience$field;
 		}
 
@@ -145,16 +147,16 @@ package com.ourgame.mahjong.message {
 		private var winRate$field:Number;
 
 		public function clearWinRate():void {
-			hasField$0 &= 0xfffffffb;
+			hasField$0 &= 0xfffffff7;
 			winRate$field = new Number();
 		}
 
 		public function get hasWinRate():Boolean {
-			return (hasField$0 & 0x4) != 0;
+			return (hasField$0 & 0x8) != 0;
 		}
 
 		public function set winRate(value:Number):void {
-			hasField$0 |= 0x4;
+			hasField$0 |= 0x8;
 			winRate$field = value;
 		}
 
@@ -188,7 +190,7 @@ package com.ourgame.mahjong.message {
 			}
 			if (hasExperience) {
 				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 8);
-				com.netease.protobuf.WriteUtils.write$TYPE_UINT64(output, experience$field);
+				com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, experience$field);
 			}
 			if (hasWinRate) {
 				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.FIXED_32_BIT, 9);
@@ -269,7 +271,7 @@ package com.ourgame.mahjong.message {
 						throw new flash.errors.IOError('Bad data format: TablePlayer.experience cannot be set twice.');
 					}
 					++experience$count;
-					this.experience = com.netease.protobuf.ReadUtils.read$TYPE_UINT64(input);
+					this.experience = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
 					break;
 				case 9:
 					if (winRate$count != 0) {

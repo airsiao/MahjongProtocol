@@ -92,7 +92,7 @@ package com.ourgame.mahjong.protocol
 		/**
 		 * 邀请进入桌子
 		 */
-		public static const OGID_TABLE_INVITE:int = OGID_ROOM_MESSAGE + 79;
+		public static const OGID_TABLE_INVITE:int = OGID_ROOM_MESSAGE + 89;
 	
 	}
 }

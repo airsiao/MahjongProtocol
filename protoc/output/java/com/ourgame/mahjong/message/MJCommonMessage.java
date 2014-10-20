@@ -3425,9 +3425,9 @@ public final class MJCommonMessage {
      */
     int getLevel();
 
-    // optional uint64 experience = 8;
+    // optional uint32 experience = 8;
     /**
-     * <code>optional uint64 experience = 8;</code>
+     * <code>optional uint32 experience = 8;</code>
      *
      * <pre>
      *经验
@@ -3435,13 +3435,13 @@ public final class MJCommonMessage {
      */
     boolean hasExperience();
     /**
-     * <code>optional uint64 experience = 8;</code>
+     * <code>optional uint32 experience = 8;</code>
      *
      * <pre>
      *经验
      * </pre>
      */
-    long getExperience();
+    int getExperience();
 
     // optional float winRate = 9;
     /**
@@ -3553,7 +3553,7 @@ public final class MJCommonMessage {
             }
             case 64: {
               bitField0_ |= 0x00000080;
-              experience_ = input.readUInt64();
+              experience_ = input.readUInt32();
               break;
             }
             case 77: {
@@ -3803,11 +3803,11 @@ public final class MJCommonMessage {
       return level_;
     }
 
-    // optional uint64 experience = 8;
+    // optional uint32 experience = 8;
     public static final int EXPERIENCE_FIELD_NUMBER = 8;
-    private long experience_;
+    private int experience_;
     /**
-     * <code>optional uint64 experience = 8;</code>
+     * <code>optional uint32 experience = 8;</code>
      *
      * <pre>
      *经验
@@ -3817,13 +3817,13 @@ public final class MJCommonMessage {
       return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
-     * <code>optional uint64 experience = 8;</code>
+     * <code>optional uint32 experience = 8;</code>
      *
      * <pre>
      *经验
      * </pre>
      */
-    public long getExperience() {
+    public int getExperience() {
       return experience_;
     }
 
@@ -3859,7 +3859,7 @@ public final class MJCommonMessage {
       gender_ = 0;
       headImage_ = "";
       level_ = 0;
-      experience_ = 0L;
+      experience_ = 0;
       winRate_ = 0F;
     }
     private byte memoizedIsInitialized = -1;
@@ -3912,7 +3912,7 @@ public final class MJCommonMessage {
         output.writeUInt32(7, level_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeUInt64(8, experience_);
+        output.writeUInt32(8, experience_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         output.writeFloat(9, winRate_);
@@ -3956,7 +3956,7 @@ public final class MJCommonMessage {
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(8, experience_);
+          .computeUInt32Size(8, experience_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
@@ -4096,7 +4096,7 @@ public final class MJCommonMessage {
         bitField0_ = (bitField0_ & ~0x00000020);
         level_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
-        experience_ = 0L;
+        experience_ = 0;
         bitField0_ = (bitField0_ & ~0x00000080);
         winRate_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000100);
@@ -4639,10 +4639,10 @@ public final class MJCommonMessage {
         return this;
       }
 
-      // optional uint64 experience = 8;
-      private long experience_ ;
+      // optional uint32 experience = 8;
+      private int experience_ ;
       /**
-       * <code>optional uint64 experience = 8;</code>
+       * <code>optional uint32 experience = 8;</code>
        *
        * <pre>
        *经验
@@ -4652,30 +4652,30 @@ public final class MJCommonMessage {
         return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional uint64 experience = 8;</code>
+       * <code>optional uint32 experience = 8;</code>
        *
        * <pre>
        *经验
        * </pre>
        */
-      public long getExperience() {
+      public int getExperience() {
         return experience_;
       }
       /**
-       * <code>optional uint64 experience = 8;</code>
+       * <code>optional uint32 experience = 8;</code>
        *
        * <pre>
        *经验
        * </pre>
        */
-      public Builder setExperience(long value) {
+      public Builder setExperience(int value) {
         bitField0_ |= 0x00000080;
         experience_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint64 experience = 8;</code>
+       * <code>optional uint32 experience = 8;</code>
        *
        * <pre>
        *经验
@@ -4683,7 +4683,7 @@ public final class MJCommonMessage {
        */
       public Builder clearExperience() {
         bitField0_ = (bitField0_ & ~0x00000080);
-        experience_ = 0L;
+        experience_ = 0;
         onChanged();
         return this;
       }
@@ -4791,7 +4791,7 @@ public final class MJCommonMessage {
       "\r\"\243\001\n\013TablePlayer\022\014\n\004seat\030\001 \002(\021\022\016\n\006userI" +
       "d\030\002 \002(\004\022\020\n\010nickname\030\003 \002(\t\022\r\n\005score\030\004 \002(\021" +
       "\022\016\n\006gender\030\005 \001(\r\022\021\n\theadImage\030\006 \001(\t\022\r\n\005l" +
-      "evel\030\007 \001(\r\022\022\n\nexperience\030\010 \001(\004\022\017\n\007winRat" +
+      "evel\030\007 \001(\r\022\022\n\nexperience\030\010 \001(\r\022\017\n\007winRat" +
       "e\030\t \001(\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
