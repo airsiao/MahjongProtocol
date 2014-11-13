@@ -1,6 +1,7 @@
 @echo off
 md output\as3
 md output\java
+call compiler\bin.bat MJBloodRiverMessage
 call compiler\bin.bat MJCommonMessage
 call compiler\bin.bat MJLobbyMessage
 call compiler\bin.bat MJRoomMessage

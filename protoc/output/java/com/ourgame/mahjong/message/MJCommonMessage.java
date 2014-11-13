@@ -3460,6 +3460,24 @@ public final class MJCommonMessage {
      * </pre>
      */
     float getWinRate();
+
+    // optional uint32 roleId = 10;
+    /**
+     * <code>optional uint32 roleId = 10;</code>
+     *
+     * <pre>
+     *角色ID
+     * </pre>
+     */
+    boolean hasRoleId();
+    /**
+     * <code>optional uint32 roleId = 10;</code>
+     *
+     * <pre>
+     *角色ID
+     * </pre>
+     */
+    int getRoleId();
   }
   /**
    * Protobuf type {@code com.ourgame.mahjong.message.TablePlayer}
@@ -3559,6 +3577,11 @@ public final class MJCommonMessage {
             case 77: {
               bitField0_ |= 0x00000100;
               winRate_ = input.readFloat();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000200;
+              roleId_ = input.readUInt32();
               break;
             }
           }
@@ -3851,6 +3874,30 @@ public final class MJCommonMessage {
       return winRate_;
     }
 
+    // optional uint32 roleId = 10;
+    public static final int ROLEID_FIELD_NUMBER = 10;
+    private int roleId_;
+    /**
+     * <code>optional uint32 roleId = 10;</code>
+     *
+     * <pre>
+     *角色ID
+     * </pre>
+     */
+    public boolean hasRoleId() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <code>optional uint32 roleId = 10;</code>
+     *
+     * <pre>
+     *角色ID
+     * </pre>
+     */
+    public int getRoleId() {
+      return roleId_;
+    }
+
     private void initFields() {
       seat_ = 0;
       userId_ = 0L;
@@ -3861,6 +3908,7 @@ public final class MJCommonMessage {
       level_ = 0;
       experience_ = 0;
       winRate_ = 0F;
+      roleId_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3917,6 +3965,9 @@ public final class MJCommonMessage {
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         output.writeFloat(9, winRate_);
       }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeUInt32(10, roleId_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -3961,6 +4012,10 @@ public final class MJCommonMessage {
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(9, winRate_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(10, roleId_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4100,6 +4155,8 @@ public final class MJCommonMessage {
         bitField0_ = (bitField0_ & ~0x00000080);
         winRate_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000100);
+        roleId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
 
@@ -4164,6 +4221,10 @@ public final class MJCommonMessage {
           to_bitField0_ |= 0x00000100;
         }
         result.winRate_ = winRate_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.roleId_ = roleId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4210,6 +4271,9 @@ public final class MJCommonMessage {
         }
         if (other.hasWinRate()) {
           setWinRate(other.getWinRate());
+        }
+        if (other.hasRoleId()) {
+          setRoleId(other.getRoleId());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4737,6 +4801,55 @@ public final class MJCommonMessage {
         return this;
       }
 
+      // optional uint32 roleId = 10;
+      private int roleId_ ;
+      /**
+       * <code>optional uint32 roleId = 10;</code>
+       *
+       * <pre>
+       *角色ID
+       * </pre>
+       */
+      public boolean hasRoleId() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      /**
+       * <code>optional uint32 roleId = 10;</code>
+       *
+       * <pre>
+       *角色ID
+       * </pre>
+       */
+      public int getRoleId() {
+        return roleId_;
+      }
+      /**
+       * <code>optional uint32 roleId = 10;</code>
+       *
+       * <pre>
+       *角色ID
+       * </pre>
+       */
+      public Builder setRoleId(int value) {
+        bitField0_ |= 0x00000200;
+        roleId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 roleId = 10;</code>
+       *
+       * <pre>
+       *角色ID
+       * </pre>
+       */
+      public Builder clearRoleId() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        roleId_ = 0;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:com.ourgame.mahjong.message.TablePlayer)
     }
 
@@ -4788,11 +4901,11 @@ public final class MJCommonMessage {
       "\014playerAmount\030\003 \002(\r\022\027\n\017maxPlayerAmount\030\004" +
       " \002(\r\022\022\n\nenterBuyin\030\005 \002(\004\022\022\n\nenterScore\030\006",
       " \002(\004\022\021\n\tunitValue\030\007 \002(\r\022\020\n\010minScore\030\010 \002(" +
-      "\r\"\243\001\n\013TablePlayer\022\014\n\004seat\030\001 \002(\021\022\016\n\006userI" +
+      "\r\"\263\001\n\013TablePlayer\022\014\n\004seat\030\001 \002(\021\022\016\n\006userI" +
       "d\030\002 \002(\004\022\020\n\010nickname\030\003 \002(\t\022\r\n\005score\030\004 \002(\021" +
       "\022\016\n\006gender\030\005 \001(\r\022\021\n\theadImage\030\006 \001(\t\022\r\n\005l" +
       "evel\030\007 \001(\r\022\022\n\nexperience\030\010 \001(\r\022\017\n\007winRat" +
-      "e\030\t \001(\002"
+      "e\030\t \001(\002\022\016\n\006roleId\030\n \001(\r"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -4822,7 +4935,7 @@ public final class MJCommonMessage {
           internal_static_com_ourgame_mahjong_message_TablePlayer_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_ourgame_mahjong_message_TablePlayer_descriptor,
-              new java.lang.String[] { "Seat", "UserId", "Nickname", "Score", "Gender", "HeadImage", "Level", "Experience", "WinRate", });
+              new java.lang.String[] { "Seat", "UserId", "Nickname", "Score", "Gender", "HeadImage", "Level", "Experience", "WinRate", "RoleId", });
           return null;
         }
       };

@@ -167,6 +167,31 @@ package com.ourgame.mahjong.message {
 		/**
 		 *  @private
 		 */
+		public static const ROLEID:FieldDescriptor$TYPE_UINT32 = new FieldDescriptor$TYPE_UINT32("com.ourgame.mahjong.message.TablePlayer.roleId", "roleId", (10 << 3) | com.netease.protobuf.WireType.VARINT);
+
+		private var roleId$field:uint;
+
+		public function clearRoleId():void {
+			hasField$0 &= 0xffffffef;
+			roleId$field = new uint();
+		}
+
+		public function get hasRoleId():Boolean {
+			return (hasField$0 & 0x10) != 0;
+		}
+
+		public function set roleId(value:uint):void {
+			hasField$0 |= 0x10;
+			roleId$field = value;
+		}
+
+		public function get roleId():uint {
+			return roleId$field;
+		}
+
+		/**
+		 *  @private
+		 */
 		override com.netease.protobuf.used_by_generated_code final function writeToBuffer(output:com.netease.protobuf.WritingBuffer):void {
 			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 1);
 			com.netease.protobuf.WriteUtils.write$TYPE_SINT32(output, this.seat);
@@ -196,6 +221,10 @@ package com.ourgame.mahjong.message {
 				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.FIXED_32_BIT, 9);
 				com.netease.protobuf.WriteUtils.write$TYPE_FLOAT(output, winRate$field);
 			}
+			if (hasRoleId) {
+				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 10);
+				com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, roleId$field);
+			}
 			for (var fieldKey:* in this) {
 				super.writeUnknown(output, fieldKey);
 			}
@@ -214,6 +243,7 @@ package com.ourgame.mahjong.message {
 			var level$count:uint = 0;
 			var experience$count:uint = 0;
 			var winRate$count:uint = 0;
+			var roleId$count:uint = 0;
 			while (input.bytesAvailable > bytesAfterSlice) {
 				var tag:uint = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
 				switch (tag >> 3) {
@@ -279,6 +309,13 @@ package com.ourgame.mahjong.message {
 					}
 					++winRate$count;
 					this.winRate = com.netease.protobuf.ReadUtils.read$TYPE_FLOAT(input);
+					break;
+				case 10:
+					if (roleId$count != 0) {
+						throw new flash.errors.IOError('Bad data format: TablePlayer.roleId cannot be set twice.');
+					}
+					++roleId$count;
+					this.roleId = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
 					break;
 				default:
 					super.readUnknown(input, tag);

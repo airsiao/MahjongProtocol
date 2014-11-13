@@ -44,6 +44,8 @@ message SAckLogin{
 	optional uint32 level = 8;				//等级
 	optional uint32 masterScore = 9;		//大师分
 	repeated GameInfo games = 10;			//该用户正在游戏中的游戏信息
+	optional uint32 roleId = 11;			//角色ID
+	optional bool newbie = 12;				//是否是新手
 }
 
 //========================================================================================

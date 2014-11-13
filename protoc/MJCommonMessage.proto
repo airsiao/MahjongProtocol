@@ -47,4 +47,5 @@ message TablePlayer{
 	optional uint32 level = 7;				//等级
 	optional uint32 experience = 8;			//经验
 	optional float  winRate = 9;			//胜率
+	optional uint32 roleId = 10;			//角色ID
 }

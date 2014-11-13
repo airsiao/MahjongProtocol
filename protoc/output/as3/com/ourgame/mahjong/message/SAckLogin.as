@@ -224,6 +224,56 @@ package com.ourgame.mahjong.message {
 		/**
 		 *  @private
 		 */
+		public static const ROLEID:FieldDescriptor$TYPE_UINT32 = new FieldDescriptor$TYPE_UINT32("com.ourgame.mahjong.message.SAckLogin.roleId", "roleId", (11 << 3) | com.netease.protobuf.WireType.VARINT);
+
+		private var roleId$field:uint;
+
+		public function clearRoleId():void {
+			hasField$0 &= 0xffffffef;
+			roleId$field = new uint();
+		}
+
+		public function get hasRoleId():Boolean {
+			return (hasField$0 & 0x10) != 0;
+		}
+
+		public function set roleId(value:uint):void {
+			hasField$0 |= 0x10;
+			roleId$field = value;
+		}
+
+		public function get roleId():uint {
+			return roleId$field;
+		}
+
+		/**
+		 *  @private
+		 */
+		public static const NEWBIE:FieldDescriptor$TYPE_BOOL = new FieldDescriptor$TYPE_BOOL("com.ourgame.mahjong.message.SAckLogin.newbie", "newbie", (12 << 3) | com.netease.protobuf.WireType.VARINT);
+
+		private var newbie$field:Boolean;
+
+		public function clearNewbie():void {
+			hasField$0 &= 0xffffffdf;
+			newbie$field = new Boolean();
+		}
+
+		public function get hasNewbie():Boolean {
+			return (hasField$0 & 0x20) != 0;
+		}
+
+		public function set newbie(value:Boolean):void {
+			hasField$0 |= 0x20;
+			newbie$field = value;
+		}
+
+		public function get newbie():Boolean {
+			return newbie$field;
+		}
+
+		/**
+		 *  @private
+		 */
 		override com.netease.protobuf.used_by_generated_code final function writeToBuffer(output:com.netease.protobuf.WritingBuffer):void {
 			com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 1);
 			com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, this.result);
@@ -263,6 +313,14 @@ package com.ourgame.mahjong.message {
 				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.LENGTH_DELIMITED, 10);
 				com.netease.protobuf.WriteUtils.write$TYPE_MESSAGE(output, this.games[games$index]);
 			}
+			if (hasRoleId) {
+				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 11);
+				com.netease.protobuf.WriteUtils.write$TYPE_UINT32(output, roleId$field);
+			}
+			if (hasNewbie) {
+				com.netease.protobuf.WriteUtils.writeTag(output, com.netease.protobuf.WireType.VARINT, 12);
+				com.netease.protobuf.WriteUtils.write$TYPE_BOOL(output, newbie$field);
+			}
 			for (var fieldKey:* in this) {
 				super.writeUnknown(output, fieldKey);
 			}
@@ -281,6 +339,8 @@ package com.ourgame.mahjong.message {
 			var experience$count:uint = 0;
 			var level$count:uint = 0;
 			var masterScore$count:uint = 0;
+			var roleId$count:uint = 0;
+			var newbie$count:uint = 0;
 			while (input.bytesAvailable > bytesAfterSlice) {
 				var tag:uint = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
 				switch (tag >> 3) {
@@ -349,6 +409,20 @@ package com.ourgame.mahjong.message {
 					break;
 				case 10:
 					this.games.push(com.netease.protobuf.ReadUtils.read$TYPE_MESSAGE(input, new com.ourgame.mahjong.message.GameInfo()));
+					break;
+				case 11:
+					if (roleId$count != 0) {
+						throw new flash.errors.IOError('Bad data format: SAckLogin.roleId cannot be set twice.');
+					}
+					++roleId$count;
+					this.roleId = com.netease.protobuf.ReadUtils.read$TYPE_UINT32(input);
+					break;
+				case 12:
+					if (newbie$count != 0) {
+						throw new flash.errors.IOError('Bad data format: SAckLogin.newbie cannot be set twice.');
+					}
+					++newbie$count;
+					this.newbie = com.netease.protobuf.ReadUtils.read$TYPE_BOOL(input);
 					break;
 				default:
 					super.readUnknown(input, tag);

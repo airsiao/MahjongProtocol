@@ -2588,6 +2588,42 @@ public final class MJLobbyMessage {
      */
     com.ourgame.mahjong.message.MJCommonMessage.GameInfoOrBuilder getGamesOrBuilder(
         int index);
+
+    // optional uint32 roleId = 11;
+    /**
+     * <code>optional uint32 roleId = 11;</code>
+     *
+     * <pre>
+     *角色ID
+     * </pre>
+     */
+    boolean hasRoleId();
+    /**
+     * <code>optional uint32 roleId = 11;</code>
+     *
+     * <pre>
+     *角色ID
+     * </pre>
+     */
+    int getRoleId();
+
+    // optional bool newbie = 12;
+    /**
+     * <code>optional bool newbie = 12;</code>
+     *
+     * <pre>
+     *是否是新手
+     * </pre>
+     */
+    boolean hasNewbie();
+    /**
+     * <code>optional bool newbie = 12;</code>
+     *
+     * <pre>
+     *是否是新手
+     * </pre>
+     */
+    boolean getNewbie();
   }
   /**
    * Protobuf type {@code com.ourgame.mahjong.message.SAckLogin}
@@ -2691,6 +2727,16 @@ public final class MJLobbyMessage {
                 mutable_bitField0_ |= 0x00000200;
               }
               games_.add(input.readMessage(com.ourgame.mahjong.message.MJCommonMessage.GameInfo.PARSER, extensionRegistry));
+              break;
+            }
+            case 88: {
+              bitField0_ |= 0x00000200;
+              roleId_ = input.readUInt32();
+              break;
+            }
+            case 96: {
+              bitField0_ |= 0x00000400;
+              newbie_ = input.readBool();
               break;
             }
           }
@@ -3101,6 +3147,54 @@ public final class MJLobbyMessage {
       return games_.get(index);
     }
 
+    // optional uint32 roleId = 11;
+    public static final int ROLEID_FIELD_NUMBER = 11;
+    private int roleId_;
+    /**
+     * <code>optional uint32 roleId = 11;</code>
+     *
+     * <pre>
+     *角色ID
+     * </pre>
+     */
+    public boolean hasRoleId() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <code>optional uint32 roleId = 11;</code>
+     *
+     * <pre>
+     *角色ID
+     * </pre>
+     */
+    public int getRoleId() {
+      return roleId_;
+    }
+
+    // optional bool newbie = 12;
+    public static final int NEWBIE_FIELD_NUMBER = 12;
+    private boolean newbie_;
+    /**
+     * <code>optional bool newbie = 12;</code>
+     *
+     * <pre>
+     *是否是新手
+     * </pre>
+     */
+    public boolean hasNewbie() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    /**
+     * <code>optional bool newbie = 12;</code>
+     *
+     * <pre>
+     *是否是新手
+     * </pre>
+     */
+    public boolean getNewbie() {
+      return newbie_;
+    }
+
     private void initFields() {
       result_ = 0;
       failReason_ = "";
@@ -3112,6 +3206,8 @@ public final class MJLobbyMessage {
       level_ = 0;
       masterScore_ = 0;
       games_ = java.util.Collections.emptyList();
+      roleId_ = 0;
+      newbie_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3165,6 +3261,12 @@ public final class MJLobbyMessage {
       for (int i = 0; i < games_.size(); i++) {
         output.writeMessage(10, games_.get(i));
       }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeUInt32(11, roleId_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeBool(12, newbie_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -3213,6 +3315,14 @@ public final class MJLobbyMessage {
       for (int i = 0; i < games_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(10, games_.get(i));
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(11, roleId_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(12, newbie_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3355,6 +3465,10 @@ public final class MJLobbyMessage {
         } else {
           gamesBuilder_.clear();
         }
+        roleId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        newbie_ = false;
+        bitField0_ = (bitField0_ & ~0x00000800);
         return this;
       }
 
@@ -3428,6 +3542,14 @@ public final class MJLobbyMessage {
         } else {
           result.games_ = gamesBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.roleId_ = roleId_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.newbie_ = newbie_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3502,6 +3624,12 @@ public final class MJLobbyMessage {
               gamesBuilder_.addAllMessages(other.games_);
             }
           }
+        }
+        if (other.hasRoleId()) {
+          setRoleId(other.getRoleId());
+        }
+        if (other.hasNewbie()) {
+          setNewbie(other.getNewbie());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4438,6 +4566,104 @@ public final class MJLobbyMessage {
           games_ = null;
         }
         return gamesBuilder_;
+      }
+
+      // optional uint32 roleId = 11;
+      private int roleId_ ;
+      /**
+       * <code>optional uint32 roleId = 11;</code>
+       *
+       * <pre>
+       *角色ID
+       * </pre>
+       */
+      public boolean hasRoleId() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      /**
+       * <code>optional uint32 roleId = 11;</code>
+       *
+       * <pre>
+       *角色ID
+       * </pre>
+       */
+      public int getRoleId() {
+        return roleId_;
+      }
+      /**
+       * <code>optional uint32 roleId = 11;</code>
+       *
+       * <pre>
+       *角色ID
+       * </pre>
+       */
+      public Builder setRoleId(int value) {
+        bitField0_ |= 0x00000400;
+        roleId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 roleId = 11;</code>
+       *
+       * <pre>
+       *角色ID
+       * </pre>
+       */
+      public Builder clearRoleId() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        roleId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional bool newbie = 12;
+      private boolean newbie_ ;
+      /**
+       * <code>optional bool newbie = 12;</code>
+       *
+       * <pre>
+       *是否是新手
+       * </pre>
+       */
+      public boolean hasNewbie() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      /**
+       * <code>optional bool newbie = 12;</code>
+       *
+       * <pre>
+       *是否是新手
+       * </pre>
+       */
+      public boolean getNewbie() {
+        return newbie_;
+      }
+      /**
+       * <code>optional bool newbie = 12;</code>
+       *
+       * <pre>
+       *是否是新手
+       * </pre>
+       */
+      public Builder setNewbie(boolean value) {
+        bitField0_ |= 0x00000800;
+        newbie_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool newbie = 12;</code>
+       *
+       * <pre>
+       *是否是新手
+       * </pre>
+       */
+      public Builder clearNewbie() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        newbie_ = false;
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:com.ourgame.mahjong.message.SAckLogin)
@@ -12268,30 +12494,31 @@ public final class MJLobbyMessage {
       "\t\022\016\n\006ticket\030\005 \001(\t\022\022\n\nsessionKey\030\006 \001(\t\022\021\n" +
       "\theadImage\030\007 \001(\t\022\016\n\006gender\030\010 \001(\r\022\021\n\tchan" +
       "nelId\030\t \001(\r\022\017\n\007version\030\n \001(\r\022\r\n\005force\030\013 " +
-      "\001(\010\022\022\n\nantiAddict\030\014 \001(\010\"\343\001\n\tSAckLogin\022\016\n" +
+      "\001(\010\022\022\n\nantiAddict\030\014 \001(\010\"\203\002\n\tSAckLogin\022\016\n" +
       "\006result\030\001 \002(\r\022\022\n\nfailReason\030\002 \001(\t\022\021\n\tour" +
       "gameId\030\003 \001(\t\022\022\n\nsessionKey\030\004 \001(\t\022\016\n\006user",
       "Id\030\005 \001(\004\022\r\n\005money\030\006 \001(\r\022\022\n\nexperience\030\007 " +
       "\001(\r\022\r\n\005level\030\010 \001(\r\022\023\n\013masterScore\030\t \001(\r\022" +
       "4\n\005games\030\n \003(\0132%.com.ourgame.mahjong.mes" +
-      "sage.GameInfo\" \n\nCReqLogout\022\022\n\nsessionKe" +
-      "y\030\001 \001(\t\"\034\n\nSAckLogout\022\016\n\006result\030\001 \001(\r\"8\n" +
-      "\014CReqRankList\022\014\n\004type\030\001 \001(\r\022\014\n\004page\030\002 \001(" +
-      "\r\022\014\n\004size\030\003 \001(\r\"\252\001\n\014SAckRankList\022\014\n\004type" +
-      "\030\001 \001(\r\022\014\n\004page\030\002 \001(\r\022\014\n\004size\030\003 \001(\r\022<\n\004da" +
-      "ta\030\004 \003(\0132..com.ourgame.mahjong.message.S" +
-      "AckRankList.Item\0322\n\004Item\022\016\n\006serial\030\001 \002(\r",
-      "\022\013\n\003key\030\002 \002(\t\022\r\n\005value\030\003 \002(\r\"\016\n\014CReqUser" +
-      "Data\"U\n\014SAckUserData\022\r\n\005money\030\001 \002(\r\022\022\n\ne" +
-      "xperience\030\002 \001(\r\022\r\n\005level\030\003 \001(\r\022\023\n\013master" +
-      "Score\030\004 \001(\r\"i\n\017NtfGlobalNotice\022\017\n\007msgTyp" +
-      "e\030\001 \002(\r\022\017\n\007content\030\002 \002(\t\022\016\n\006sender\030\003 \002(\004" +
-      "\022\020\n\010receiver\030\004 \001(\004\022\022\n\nsenderName\030\005 \001(\t\"D" +
-      "\n\016CReqGlobalChat\022\017\n\007msgType\030\001 \002(\r\022\017\n\007con" +
-      "tent\030\002 \002(\t\022\020\n\010receiver\030\003 \001(\004\"C\n\016SAckGlob" +
-      "alChat\022\016\n\006result\030\001 \001(\r\022\022\n\nfailReason\030\002 \001" +
-      "(\t\022\r\n\005price\030\003 \001(\r\"\020\n\016CReqUserAmount\" \n\016S",
-      "AckUserAmount\022\016\n\006amount\030\001 \002(\r"
+      "sage.GameInfo\022\016\n\006roleId\030\013 \001(\r\022\016\n\006newbie\030" +
+      "\014 \001(\010\" \n\nCReqLogout\022\022\n\nsessionKey\030\001 \001(\t\"" +
+      "\034\n\nSAckLogout\022\016\n\006result\030\001 \001(\r\"8\n\014CReqRan" +
+      "kList\022\014\n\004type\030\001 \001(\r\022\014\n\004page\030\002 \001(\r\022\014\n\004siz" +
+      "e\030\003 \001(\r\"\252\001\n\014SAckRankList\022\014\n\004type\030\001 \001(\r\022\014" +
+      "\n\004page\030\002 \001(\r\022\014\n\004size\030\003 \001(\r\022<\n\004data\030\004 \003(\013" +
+      "2..com.ourgame.mahjong.message.SAckRankL",
+      "ist.Item\0322\n\004Item\022\016\n\006serial\030\001 \002(\r\022\013\n\003key\030" +
+      "\002 \002(\t\022\r\n\005value\030\003 \002(\r\"\016\n\014CReqUserData\"U\n\014" +
+      "SAckUserData\022\r\n\005money\030\001 \002(\r\022\022\n\nexperienc" +
+      "e\030\002 \001(\r\022\r\n\005level\030\003 \001(\r\022\023\n\013masterScore\030\004 " +
+      "\001(\r\"i\n\017NtfGlobalNotice\022\017\n\007msgType\030\001 \002(\r\022" +
+      "\017\n\007content\030\002 \002(\t\022\016\n\006sender\030\003 \002(\004\022\020\n\010rece" +
+      "iver\030\004 \001(\004\022\022\n\nsenderName\030\005 \001(\t\"D\n\016CReqGl" +
+      "obalChat\022\017\n\007msgType\030\001 \002(\r\022\017\n\007content\030\002 \002" +
+      "(\t\022\020\n\010receiver\030\003 \001(\004\"C\n\016SAckGlobalChat\022\016" +
+      "\n\006result\030\001 \001(\r\022\022\n\nfailReason\030\002 \001(\t\022\r\n\005pr",
+      "ice\030\003 \001(\r\"\020\n\016CReqUserAmount\" \n\016SAckUserA" +
+      "mount\022\016\n\006amount\030\001 \002(\r"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -12309,7 +12536,7 @@ public final class MJLobbyMessage {
           internal_static_com_ourgame_mahjong_message_SAckLogin_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_ourgame_mahjong_message_SAckLogin_descriptor,
-              new java.lang.String[] { "Result", "FailReason", "OurgameId", "SessionKey", "UserId", "Money", "Experience", "Level", "MasterScore", "Games", });
+              new java.lang.String[] { "Result", "FailReason", "OurgameId", "SessionKey", "UserId", "Money", "Experience", "Level", "MasterScore", "Games", "RoleId", "Newbie", });
           internal_static_com_ourgame_mahjong_message_CReqLogout_descriptor =
             getDescriptor().getMessageTypes().get(2);
           internal_static_com_ourgame_mahjong_message_CReqLogout_fieldAccessorTable = new
